@@ -1,0 +1,54 @@
+<html>
+
+  <head>
+   <title> All about food</title>
+   <link rel="stylesheet" href="food.css">
+   <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+   <script src="food.js"></script>
+  
+   <!-- Resources-->
+   <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+   <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+   <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+   <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+   <script src="https://www.amcharts.com/lib/3/themes/dark.js"></script>
+
+
+  <body>
+    <h1>Food Consumption and Distribution Worldwide!</h1>
+            <div id="chartdiv">
+                <script src="MapaConsumo.js"></script>
+            </div>
+            <span class="btn btn1"	id="absolute" >Absolute</span>
+            <span class="btn btn2"	id="capita" >Per Capita</span>
+            <div id="barchart">
+                <svg width="320" height="470"></svg>
+            </div>
+            <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn">Consumptions
+                </button>
+                <div id="myDropdown" class="dropdown-content">
+                    <select name ="select1" id="select1" class="LABEL" onchange="show_models() ; updateData()">
+                        <option value="cat" selected> Category</option>
+                        <option value="beverage">Beverages</option>
+                        <option value="animal">Animal Products</option>
+                        <option value="vegetable">Vegetable Products</option>
+                        
+                    </select>
+                    <select name="select2" id="select2" class="LABEL">
+                        <option value="sub" selected> Subcategory</option>
+                    </select>
+                </div>
+            </div>
+            <div id="myDropdown3" class="dropdown2">
+                <button onclick="myFunction2()" class="dropbtn2">Comparisions
+                </button>
+                <div id="myDropdown2" class="dropdown-content2">
+                    <input class="radio" type="radio" name="food" value="Consumptions" font-size:"12px"  font-family:"arial">Consumptions<br>
+                        <input class="radio" type="radio" name="food" value="Obesity" font-size:"12px"  font-family:"arial">Obesity<br>
+                            <input class="radio" type="radio" name="food" value="LifeExpectancy" font-size:"12px"  font-family:"arial">Life Expectancy
+                                </div>
+            </div>
+  </body>
+
+</html>
