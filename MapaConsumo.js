@@ -5,7 +5,16 @@
  That's why wehave the coordinates stored here
  */
 
+var drink_capita;
+
+d3.json("drink-percapita.json", function (data) {
+        drink_capita = data.data;
+        gen_vis()
+        })
+
+
 var latlong = {};
+var mapData = [];
 latlong["AD"] = {"latitude":42.5, "longitude":1.5};
 latlong["AE"] = {"latitude":24, "longitude":54};
 latlong["AG"] = {"latitude":17.05, "longitude":-61.8};
@@ -246,80 +255,81 @@ latlong["ZA"] = {"latitude":-29, "longitude":24};
 latlong["ZM"] = {"latitude":-15, "longitude":30};
 latlong["ZW"] = {"latitude":-20, "longitude":30};
 
-var mapData = [
-               {"code":"AR" , "name":"Argentina", "value":40764561, "color":"#86a965"},
-               {"code":"AU" , "name":"Australia", "value":22605732, "color":"#8aabb0"},
-               {"code":"AT" , "name":"Austria", "value":8413429, "color":"#d8854f"},
-               {"code":"BD" , "name":"Bangladesh", "value":150493658, "color":"#eea638"},
-               {"code":"BE" , "name":"Belgium", "value":10754056, "color":"#d8854f"},
-               {"code":"BO" , "name":"Bolivia", "value":10088108, "color":"#86a965"},
-               {"code":"BA" , "name":"Bosnia and Herzegovina", "value":3752228, "color":"#d8854f"},
-               {"code":"BR" , "name":"Brazil", "value":196655014, "color":"#86a965"},
-               {"code":"BG" , "name":"Bulgaria", "value":7446135, "color":"#d8854f"},
-               {"code":"CA" , "name":"Canada", "value":34349561, "color":"#a7a737"},
-               {"code":"CL" , "name":"Chile", "value":17269525, "color":"#86a965"},
-               {"code":"CN" , "name":"China", "value":1347565324, "color":"#eea638"},
-               {"code":"CO" , "name":"Colombia", "value":46927125, "color":"#86a965"},
-               {"code":"CR" , "name":"Costa Rica", "value":4726575, "color":"#a7a737"},
-               {"code":"CZ" , "name":"Czech Rep.", "value":10534293, "color":"#d8854f"},
-               {"code":"DK" , "name":"Denmark", "value":5572594, "color":"#d8854f"},
-               {"code":"DO" , "name":"Dominican Rep.", "value":10056181, "color":"#a7a737"},
-               {"code":"EC" , "name":"Ecuador", "value":14666055, "color":"#86a965"},
-               {"code":"EG" , "name":"Egypt", "value":82536770, "color":"#de4c4f"},
-               {"code":"ET" , "name":"Ethiopia", "value":84734262, "color":"#de4c4f"},
-               {"code":"FI" , "name":"Finland", "value":5384770, "color":"#d8854f"},
-               {"code":"FR" , "name":"France", "value":63125894, "color":"#d8854f"},
-               {"code":"DE" , "name":"Germany", "value":82162512, "color":"#d8854f"},
-               {"code":"GH" , "name":"Ghana", "value":24965816, "color":"#de4c4f"},
-               {"code":"GR" , "name":"Greece", "value":11390031, "color":"#d8854f"},
-               {"code":"HT" , "name":"Haiti", "value":10123787, "color":"#a7a737"},
-               {"code":"HU" , "name":"Hungary", "value":9966116, "color":"#d8854f"},
-               {"code":"IS" , "name":"Iceland", "value":324366, "color":"#d8854f"},
-               {"code":"IN" , "name":"India", "value":1241491960, "color":"#eea638"},
-               {"code":"ID" , "name":"Indonesia", "value":242325638, "color":"#eea638"},
-               {"code":"IR" , "name":"Iran", "value":74798599, "color":"#eea638"},
-               {"code":"IL" , "name":"Israel", "value":7562194, "color":"#eea638"},
-               {"code":"IT" , "name":"Italy", "value":60788694, "color":"#d8854f"},
-               {"code":"JM" , "name":"Jamaica", "value":2751273, "color":"#a7a737"},
-               {"code":"JP" , "name":"Japan", "value":126497241, "color":"#eea638"},
-               {"code":"KE" , "name":"Kenya", "value":41609728, "color":"#de4c4f"},
-               {"code":"MG" , "name":"Madagascar", "value":21315135, "color":"#de4c4f"},
-               {"code":"MW" , "name":"Malawi", "value":15380888, "color":"#de4c4f"},
-               {"code":"MX" , "name":"Mexico", "value":114793341, "color":"#a7a737"},
-               {"code":"MN" , "name":"Mongolia", "value":2800114, "color":"#eea638"},
-               {"code":"MA" , "name":"Morocco", "value":32272974, "color":"#de4c4f"},
-               {"code":"NL" , "name":"Netherlands", "value":16664746, "color":"#d8854f"},
-               {"code":"NZ" , "name":"New Zealand", "value":4414509, "color":"#8aabb0"},
-               {"code":"NG" , "name":"Nigeria", "value":162470737, "color":"#de4c4f"},
-               {"code":"PK" , "name":"Pakistan", "value":176745364, "color":"#eea638"},
-               {"code":"PY" , "name":"Paraguay", "value":6568290, "color":"#86a965"},
-               {"code":"PE" , "name":"Peru", "value":29399817, "color":"#86a965"},
-               {"code":"PH" , "name":"Philippines", "value":94852030, "color":"#eea638"},
-               {"code":"PL" , "name":"Poland", "value":38298949, "color":"#d8854f"},
-               {"code":"PT" , "name":"Portugal", "value":10689663, "color":"#d8854f"},
-               {"code":"RO" , "name":"Romania", "value":21436495, "color":"#d8854f"},
-               {"code":"RU" , "name":"Russia", "value":142835555, "color":"#d8854f"},
-               {"code":"SA" , "name":"Saudi Arabia", "value":28082541, "color":"#eea638"},
-               {"code":"SN" , "name":"Senegal", "value":12767556, "color":"#de4c4f"},
-               {"code":"SL" , "name":"Sierra Leone", "value":5997486, "color":"#de4c4f"},
-               {"code":"ZA" , "name":"South Africa", "value":50459978, "color":"#de4c4f"},
-               {"code":"ES" , "name":"Spain", "value":46454895, "color":"#d8854f"},
-               {"code":"LK" , "name":"Sri Lanka", "value":21045394, "color":"#eea638"},
-               {"code":"SE" , "name":"Sweden", "value":9440747, "color":"#d8854f"},
-               {"code":"CH" , "name":"Switzerland", "value":7701690, "color":"#d8854f"},
-               {"code":"TH" , "name":"Thailand", "value":69518555, "color":"#eea638"},
-               {"code":"TN" , "name":"Tunisia", "value":10594057, "color":"#de4c4f"},
-               {"code":"TR" , "name":"Turkey", "value":73639596, "color":"#d8854f"},
-               {"code":"UA" , "name":"Ukraine", "value":45190180, "color":"#d8854f"},
-               {"code":"AE" , "name":"United Arab Emirates", "value":7890924, "color":"#eea638"},
-               {"code":"GB" , "name":"United Kingdom", "value":62417431, "color":"#d8854f"},
-               {"code":"US" , "name":"United States", "value":313085380, "color":"#a7a737"}]
+function gen_vis(){
+    mapData = [
+               {"code":"AR" , "name":"Argentina", "value":drink_capita[0].All, "color":"#86a965"},
+               {"code":"AU" , "name":"Australia", "value":drink_capita[1].All, "color":"#8aabb0"},
+               {"code":"AT" , "name":"Austria", "value":drink_capita[2].All, "color":"#d8854f"},
+               {"code":"BD" , "name":"Bangladesh", "value":drink_capita[3].All, "color":"#eea638"},
+               {"code":"BE" , "name":"Belgium", "value":drink_capita[4].All, "color":"#d8854f"},
+               {"code":"BO" , "name":"Bolivia", "value":drink_capita[5].All, "color":"#86a965"},
+               {"code":"BA" , "name":"Bosnia and Herzegovina", "value":drink_capita[6].All, "color":"#d8854f"},
+               {"code":"BR" , "name":"Brazil", "value":drink_capita[7].All, "color":"#86a965"},
+               {"code":"BG" , "name":"Bulgaria", "value":drink_capita[8].All, "color":"#d8854f"},
+               {"code":"CA" , "name":"Canada", "value":drink_capita[9].All, "color":"#a7a737"},
+               {"code":"CL" , "name":"Chile", "value":drink_capita[10].All, "color":"#86a965"},
+               {"code":"CN" , "name":"China", "value":drink_capita[11].All, "color":"#eea638"},
+               {"code":"CO" , "name":"Colombia", "value":drink_capita[12].All, "color":"#86a965"},
+               {"code":"CR" , "name":"Costa Rica", "value":drink_capita[13].All, "color":"#a7a737"},
+               {"code":"CZ" , "name":"Czech Rep.", "value":drink_capita[14].All, "color":"#d8854f"},
+               {"code":"DK" , "name":"Denmark", "value":drink_capita[15].All, "color":"#d8854f"},
+               {"code":"DO" , "name":"Dominican Rep.", "value":drink_capita[16].All, "color":"#a7a737"},
+               {"code":"EC" , "name":"Ecuador", "value":drink_capita[17].All, "color":"#86a965"},
+               {"code":"EG" , "name":"Egypt", "value":drink_capita[18].All, "color":"#de4c4f"},
+               {"code":"ET" , "name":"Ethiopia", "value":drink_capita[19].All, "color":"#de4c4f"},
+               {"code":"FI" , "name":"Finland", "value":drink_capita[20].All, "color":"#d8854f"},
+               {"code":"FR" , "name":"France", "value":drink_capita[21].All, "color":"#d8854f"},
+               {"code":"DE" , "name":"Germany", "value":drink_capita[22].All, "color":"#d8854f"},
+               {"code":"GH" , "name":"Ghana", "value":drink_capita[23].All, "color":"#de4c4f"},
+               {"code":"GR" , "name":"Greece", "value":drink_capita[24].All, "color":"#d8854f"},
+               {"code":"HT" , "name":"Haiti", "value":drink_capita[25].All, "color":"#a7a737"},
+               {"code":"HU" , "name":"Hungary", "value":drink_capita[26].All, "color":"#d8854f"},
+               {"code":"IS" , "name":"Iceland", "value":drink_capita[27].All, "color":"#d8854f"},
+               {"code":"IN" , "name":"India", "value":drink_capita[28].All, "color":"#eea638"},
+               {"code":"ID" , "name":"Indonesia", "value":drink_capita[29].All, "color":"#eea638"},
+               {"code":"IR" , "name":"Iran", "value":drink_capita[30].All, "color":"#eea638"},
+               {"code":"IL" , "name":"Israel", "value":drink_capita[31].All, "color":"#eea638"},
+               {"code":"IT" , "name":"Italy", "value":drink_capita[32].All4, "color":"#d8854f"},
+               {"code":"JM" , "name":"Jamaica", "value":drink_capita[33].All, "color":"#a7a737"},
+               {"code":"JP" , "name":"Japan", "value":drink_capita[34].All, "color":"#eea638"},
+               {"code":"KE" , "name":"Kenya", "value":drink_capita[35].All, "color":"#de4c4f"},
+               {"code":"MG" , "name":"Madagascar", "value":drink_capita[36].All, "color":"#de4c4f"},
+               {"code":"MW" , "name":"Malawi", "value":drink_capita[37].All, "color":"#de4c4f"},
+               {"code":"MX" , "name":"Mexico", "value":drink_capita[38].All, "color":"#a7a737"},
+               {"code":"MN" , "name":"Mongolia", "value":drink_capita[39].All, "color":"#eea638"},
+               {"code":"MA" , "name":"Morocco", "value":drink_capita[40].All, "color":"#de4c4f"},
+               {"code":"NL" , "name":"Netherlands", "value":drink_capita[41].All, "color":"#d8854f"},
+               {"code":"NZ" , "name":"New Zealand", "value":drink_capita[42].All, "color":"#8aabb0"},
+               {"code":"NG" , "name":"Nigeria", "value":drink_capita[43].All, "color":"#de4c4f"},
+               {"code":"PK" , "name":"Pakistan", "value":drink_capita[44].All, "color":"#eea638"},
+               {"code":"PY" , "name":"Paraguay", "value":drink_capita[45].All, "color":"#86a965"},
+               {"code":"PE" , "name":"Peru", "value":drink_capita[46].All, "color":"#86a965"},
+               {"code":"PH" , "name":"Philippines", "value":drink_capita[47].All, "color":"#eea638"},
+               {"code":"PL" , "name":"Poland", "value":drink_capita[48].All, "color":"#d8854f"},
+               {"code":"PT" , "name":"Portugal", "value":drink_capita[49].All, "color":"#d8854f"},
+               {"code":"RO" , "name":"Romania", "value":drink_capita[50].All, "color":"#d8854f"},
+               {"code":"RU" , "name":"Russia", "value":drink_capita[52].All, "color":"#d8854f"},
+               {"code":"SA" , "name":"Saudi Arabia", "value":drink_capita[53].All, "color":"#eea638"},
+               {"code":"SN" , "name":"Senegal", "value":drink_capita[54].All, "color":"#de4c4f"},
+               {"code":"SL" , "name":"Sierra Leone", "value":drink_capita[55].All, "color":"#de4c4f"},
+               {"code":"ZA" , "name":"South Africa", "value":drink_capita[56].All, "color":"#de4c4f"},
+               {"code":"ES" , "name":"Spain", "value":drink_capita[57].All, "color":"#d8854f"},
+               {"code":"LK" , "name":"Sri Lanka", "value":drink_capita[58].All, "color":"#eea638"},
+               {"code":"SE" , "name":"Sweden", "value":drink_capita[59].All, "color":"#d8854f"},
+               {"code":"CH" , "name":"Switzerland", "value":drink_capita[60].All, "color":"#d8854f"},
+               {"code":"TH" , "name":"Thailand", "value":drink_capita[61].All, "color":"#eea638"},
+               {"code":"TN" , "name":"Tunisia", "value":drink_capita[62].All, "color":"#de4c4f"},
+               {"code":"TR" , "name":"Turkey", "value":drink_capita[63].All, "color":"#d8854f"},
+               {"code":"UA" , "name":"Ukraine", "value":drink_capita[64].All, "color":"#d8854f"},
+               {"code":"AE" , "name":"United Arab Emirates", "value":drink_capita[65].All, "color":"#eea638"},
+               {"code":"GB" , "name":"United Kingdom", "value":drink_capita[66].All, "color":"#d8854f"},
+               {"code":"US" , "name":"United States", "value":drink_capita[67].All, "color":"#a7a737"}]
 
 
 
 // get min and max values
-var minBulletSize = 3;
-var maxBulletSize = 70;
+var minBulletSize = 0.1;
+var maxBulletSize = 30;
 var min = Infinity;
 var max = -Infinity;
 for ( var i = 0; i < mapData.length; i++ ) {
@@ -356,9 +366,10 @@ for ( var i = 0; i < mapData.length; i++ ) {
                 "width": size,
                 "height": size,
                 "color": dataItem.color,
+                "alpha":0.7,
                 "longitude": latlong[ id ].longitude,
                 "latitude": latlong[ id ].latitude,
-                "title": dataItem.name,
+                "title": dataItem.name + ":" + value ,
                 "value": value
                 } );
 }
@@ -381,3 +392,5 @@ var map = AmCharts.makeChart( "chartdiv", {
                              enabled: false
                              }
                              } );
+}
+
