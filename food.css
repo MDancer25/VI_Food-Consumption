@@ -4,6 +4,11 @@ h1 {
    color: #4F6877;
 }
 
+body{
+    width: 1100px;
+    height: 600px;
+}
+
 .axis path, .axis line {
     fill: none;
     stroke: black;
@@ -14,28 +19,43 @@ h1 {
     font-family: calibri, sans serif;
     font-size: 10pt;
 }
-body {
-    width:770px;
-    height:570px;
-}
 
 #chartdiv {
+    top:5px;
+    bottom:0px;
+    left:0px;
+    right:0px;
     width: 750px;
-    height: 550px;
+    height: 560px;
     position: relative;
-    
+    visibility: visible;
 }
+
+#mapdiv {
+    top:50px;
+    bottom:0px;
+    left:5px;
+    right:0px;
+    width: 755px;
+    height: 570px;
+    position: absolute;
+    visibility: hidden;
+}
+
+
 #barchart{
+    width: 360px;
+    height: 560px;
     position: relative;
-    left: 430px;
-    top: -545px;
+    left: 765px;
+    top: -590px;
     bottom: 5px;
 }
 
 .btn {
     position:relative;
-    left: 470px;
-    top: -550px;
+    left: 500px;
+    top: -600px;
     color: white;
     padding: 8px 14px;
     text-align: center;

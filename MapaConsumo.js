@@ -388,6 +388,29 @@ var map = AmCharts.makeChart( "chartdiv", {
                              map: "worldLow",
                              images: images
                              },
+                             "listeners": [ {
+                                           "event": "clickMapObject",
+                                           "method": function( event ) {
+                                            map.selectedObject = images;
+                                           
+                                           // toggle showAsSelected
+                                                event.mapObject.showAsSelected = !event.mapObject.showAsSelected;
+                                           
+                                           
+                                           // bring it to an appropriate color
+                                                map.returnInitialColor( event.mapObject );
+                                           
+                                           
+                                           // let's build a list of currently selected states
+                                                var states = [];
+                                                for ( var i in map.dataProvider.images ) {
+                                                    var area = map.dataProvider.images[ i ];
+                                                    if ( area.showAsSelected ) {
+                                                        states.push( area.title );
+                                                    }
+                                                }
+                                           }
+                             } ],
                              export: {
                              enabled: false
                              }

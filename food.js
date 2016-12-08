@@ -1,77 +1,65 @@
 var drink_capita, drink_abs, food_capita, food_abs;
-var beverages;
-var beer;
-var wine;
-var spirits;
-var other;
-var animal_food;
-var vegetal_food;
 
-function process_datatset(){
-d3.json("drink-absolute.json", function (data) {
-        drink_abs = data.data;})
 d3.json("drink-percapita.json", function (data) {
-            drink_capita = data.data;})
-d3.json("food-percapita.json", function (data) {
-                        food_capita = data.data;})
-d3.json("food-absolute.json", function (data) {
-                                food_abs = data.data;})
-    
-    gen_vis();
-
-}
-                    
-                
-        
+        drink_capita = data.data;
+        d3.json("drink-absolute.json", function (data) {
+                drink_abs = data;
+                d3.json("food-percapita.json", function (data) {
+                        food_capita = data.data;
+                        d3.json("food-absolute.json", function (data) {
+                                food_abs = data.data;
+                                gen_vis();
+                                })
+                        })
+                })
+        })
 
 function gen_vis() {
     var w = 300;
     var h = 520;
     var svg = d3.select("#barchart")
-    .append("svg")
-    .attr("width",w)
-    .attr("height",h)
+        .append("svg")
+        .attr("width",w)
+        .attr("height",h)
     var hscale = d3.scaleLinear()
-    .domain([0,drink_capita.length/2])
-    .range([0,h]);
+        .domain([0,drink_capita.length/2])
+        .range([0,h]);
     var xscale = d3.scaleLinear()
-    .domain([0,14])
-    .range([300,w]);
+        .domain([0,14])
+        .range([300,w]);
     var axisscale = d3.scaleLinear()
-    .domain([0,14])
-    .range([0,w]);
+        .domain([0,14])
+        .range([0,w]);
     var axiscountry = d3.scaleLinear()
-    .domain([drink_capita[0].Country, drink_capita[(drink_capita.length-37)].Country])
-    .range([0,h]);
+        .domain([drink_capita[0].Country, drink_capita[(drink_capita.length-37)].Country])
+        .range([0,h]);
     var yaxis = d3.axisTop()
-    .scale(axisscale);
+        .scale(axisscale);
     var xaxis = d3.axisLeft()
-    .scale(axiscountry);
-    
-    
-    
+        .scale(axiscountry);
     gY = svg.append("g")
-    .attr("transform", "translate(25,25)")
-    .call(yaxis);
+        .attr("transform", "translate(25,25)")
+        .call(yaxis);
     gX = svg.append("g")
-    .attr("transform", "translate(25,25)")
-    .call(xaxis);
+        .attr("transform", "translate(25,25)")
+        .call(xaxis);
     svg.selectAll("rect")
-    .data(drink_capita)
-    .enter().append("rect")
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.All);})
-    .attr("fill","lightblue")
-    .attr("x",function(d) { return xscale(d.All) - w;})
-    .attr("y",function(d, i) {return hscale(i); })
-    .append("title")
-    .text(function(d) {return d.Country; });
-    d3.selectAll("#select1").on("clic",function(){ updateBottom(); });
+        .data(drink_capita)
+        .enter().append("rect")
+        .attr("transform", "translate(26,26)")
+        .attr("height",15)
+        .attr("width",function(d) {return hscale(d.All);})
+        .attr("fill","lightblue")
+        .attr("x",function(d) { return xscale(d.All) - w;})
+        .attr("y",function(d, i) {return hscale(i); })
+        .append("title")
+            .text(function(d) {return d.Country; });
+    //d3.selectAll("#select1").on("clic",function(){ updateBottom(); });
 }
 
-function updateBottom(){
-    d3.json("drink-absolute.json", function (data) { dataset_abs = data.data;})
+
+/*function updateBottom(){
+ d3.json("drink-absolute.json", function (data) { dataset_abs = data.data;})
     svg.selectAll("rect")
     .data(dataset_abs)
     .transition()
@@ -85,7 +73,7 @@ function updateBottom(){
     .append("title")
     .text(function(d) {return d.Country; });
     
-}
+}*/
 
 
 
@@ -102,9 +90,9 @@ function myFunction() {
     if( is_showed == true){
         myFunction2();
     }
-
     document.getElementById("myDropdown").classList.toggle("show");
-    
+    document.getElementById("chartdiv").style.visibility = "visible";
+    document.getElementById("mapdiv").style.visibility = "hidden";
 }
 
 function myFunction2() {
@@ -112,7 +100,9 @@ function myFunction2() {
     if( is_showed == true){
         myFunction();
     }
-        document.getElementById("myDropdown2").classList.toggle("show");
+    document.getElementById("myDropdown2").classList.toggle("show");
+    document.getElementById("chartdiv").style.visibility = "hidden";
+    document.getElementById("mapdiv").style.visibility = "visibility";
 }
 
 /* ------------------------------ List in dropdown --------------------------------*/
