@@ -18,47 +18,48 @@ function gen_vis() {
     var w = 300;
     var h = 520;
     var svg = d3.select("#barchart")
-        .append("svg")
-        .attr("width",w)
-        .attr("height",h)
+    .append("svg")
+    .attr("width",w)
+    .attr("height",h);
     var hscale = d3.scaleLinear()
-        .domain([0,drink_capita.length/2])
-        .range([0,h]);
+    .domain([0,drink_capita.length/2])
+    .range([0,h]);
     var xscale = d3.scaleLinear()
-        .domain([0,14])
-        .range([300,w]);
+    .domain([0,14])
+    .range([300,w]);
     var axisscale = d3.scaleLinear()
-        .domain([0,14])
-        .range([0,w]);
+    .domain([0,14])
+    .range([0,w]);
     var axiscountry = d3.scaleLinear()
-        .domain([drink_capita[0].Country, drink_capita[(drink_capita.length-37)].Country])
-        .range([0,h]);
+    .domain([drink_capita[0].Country, drink_capita[(drink_capita.length-37)].Country])
+    .range([0,h]);
     var yaxis = d3.axisTop()
-        .scale(axisscale);
+    .scale(axisscale);
     var xaxis = d3.axisLeft()
-        .scale(axiscountry);
+    .scale(axiscountry);
     gY = svg.append("g")
-        .attr("transform", "translate(25,25)")
-        .call(yaxis);
+    .attr("transform", "translate(25,25)")
+    .call(yaxis);
     gX = svg.append("g")
-        .attr("transform", "translate(25,25)")
-        .call(xaxis);
+    .attr("transform", "translate(25,25)")
+    .call(xaxis);
     svg.selectAll("rect")
-        .data(drink_capita)
-        .enter().append("rect")
-        .attr("transform", "translate(26,26)")
-        .attr("height",15)
-        .attr("width",function(d) {return hscale(d.All);})
-        .attr("fill","lightblue")
-        .attr("x",function(d) { return xscale(d.All) - w;})
-        .attr("y",function(d, i) {return hscale(i); })
-        .append("title")
-            .text(function(d) {return d.Country; });
-    //d3.selectAll("#select1").on("clic",function(){ updateBottom(); });
+    .data(drink_capita)
+    .enter().append("rect")
+    .attr("transform", "translate(26,26)")
+    .attr("height",15)
+    .attr("width",function(d) {return hscale(d.All);})
+    .attr("fill","lightblue")
+    .attr("x",function(d) { return xscale(d.All) - w;})
+    .attr("y",function(d, i) {return hscale(i); })
+    .append("title")
+    .text(function(d) {return d.Country; });
+    d3.selectAll("#absolute").on("clic",function(){update()});
 }
 
 
-/*function updateBottom(){
+
+/*function update(){
  d3.json("drink-absolute.json", function (data) { dataset_abs = data.data;})
     svg.selectAll("rect")
     .data(dataset_abs)

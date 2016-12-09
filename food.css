@@ -50,6 +50,7 @@ body{
     left: 765px;
     top: -590px;
     bottom: 5px;
+    visibility:visible;
 }
 
 .btn {
