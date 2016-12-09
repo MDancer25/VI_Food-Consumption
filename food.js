@@ -90,9 +90,9 @@ function myFunction() {
     if( is_showed == true){
         myFunction2();
     }
-    document.getElementById("myDropdown").classList.toggle("show");
     document.getElementById("chartdiv").style.visibility = "visible";
     document.getElementById("mapdiv").style.visibility = "hidden";
+    document.getElementById("myDropdown").classList.toggle("show");
 }
 
 function myFunction2() {
@@ -100,9 +100,9 @@ function myFunction2() {
     if( is_showed == true){
         myFunction();
     }
-    document.getElementById("myDropdown2").classList.toggle("show");
     document.getElementById("chartdiv").style.visibility = "hidden";
-    document.getElementById("mapdiv").style.visibility = "visibility";
+    document.getElementById("mapdiv").style.visibility = "visible";
+    document.getElementById("myDropdown2").classList.toggle("show");
 }
 
 /* ------------------------------ List in dropdown --------------------------------*/
