@@ -1,20 +1,77 @@
-var drink_capita, drink_abs, food_capita, food_abs;
+var capita, abs, dataset;
+var cat;
+var subcat;
 
-d3.json("drink-percapita.json", function (data) {
-        drink_capita = data.data;
-        d3.json("drink-absolute.json", function (data) {
-                drink_abs = data;
-                d3.json("food-percapita.json", function (data) {
-                        food_capita = data.data;
-                        d3.json("food-absolute.json", function (data) {
-                                food_abs = data.data;
-                                gen_vis();
-                                })
-                        })
+d3.json("dataset_percapita.json", function (data) {
+        capita = data.data;
+        d3.json("dataset_absolute.json", function (data) {
+                abs = data.data;
+                dataset = capita;
+                gen_capita();
+                
                 })
         })
 
-function gen_vis() {
+    
+
+function gen_capita() {
+    console.log(capita[0].Country);
+    console.log(abs[0].Country);
+    var w = 300;
+    var h = 520;
+    var svg = d3.select("#barchart")
+        .append("svg")
+        .attr("width",w)
+        .attr("height",h);
+    var hscale = d3.scaleLinear()
+        .domain([0,dataset.length/2])
+        .range([0,h]);
+    var xscale = d3.scaleLinear()
+        .domain([0,14])
+        .range([300,w]);
+    var axisscale = d3.scaleLinear()
+        .domain([0,14])
+        .range([0,w]);
+    var axiscountry = d3.scaleLinear()
+        .domain([dataset[0].Country, dataset[(dataset.length-37)].Country])
+        .range([0,h]);
+    var yaxis = d3.axisTop()
+        .scale(axisscale);
+    var xaxis = d3.axisLeft()
+        .scale(axiscountry);
+    gY = svg.append("g")
+                      .attr("transform", "translate(25,25)")
+                      .call(yaxis);
+    gX = svg.append("g")
+        .attr("transform", "translate(25,25)")
+                      .call(xaxis);
+    svg.selectAll("rect")
+        .data(dataset)
+        .enter().append("rect")
+        .attr("transform", "translate(26,26)")
+        .attr("height",15)
+        .attr("width",function(d) {return hscale(d.Beer);})
+        .attr("fill","lightblue")
+        .attr("x",function(d) {
+             // if beverages==Beer
+              return xscale(d.Beer) - w;})
+        .attr("y",function(d, i) {return hscale(i); })
+        .append("title")
+            .text(function(d) {return d.Country; });
+    d3.selectAll("#absolute").on("clic", function(){
+                                 console.log("ENTROU ON CLICK ABS");
+                                 dataset = drink_abs;
+                                 gen_abs();
+                                 });
+    d3.selectAll("#capita").on("clic", function(){
+                               dataset = abs;
+                               gen_capita();
+                               });
+
+}
+
+function gen_abs(){
+    console.log("ENTROU UPDATE");
     var w = 300;
     var h = 520;
     var svg = d3.select("#barchart")
@@ -22,7 +79,7 @@ function gen_vis() {
     .attr("width",w)
     .attr("height",h);
     var hscale = d3.scaleLinear()
-    .domain([0,drink_capita.length/2])
+    .domain([0,dataset.length/2])
     .range([0,h]);
     var xscale = d3.scaleLinear()
     .domain([0,14])
@@ -31,7 +88,7 @@ function gen_vis() {
     .domain([0,14])
     .range([0,w]);
     var axiscountry = d3.scaleLinear()
-    .domain([drink_capita[0].Country, drink_capita[(drink_capita.length-37)].Country])
+    .domain([dataset[0].Country, dataset[(dataset.length-37)].Country])
     .range([0,h]);
     var yaxis = d3.axisTop()
     .scale(axisscale);
@@ -44,38 +101,19 @@ function gen_vis() {
     .attr("transform", "translate(25,25)")
     .call(xaxis);
     svg.selectAll("rect")
-    .data(drink_capita)
+    .data(dataset)
     .enter().append("rect")
     .attr("transform", "translate(26,26)")
     .attr("height",15)
-    .attr("width",function(d) {return hscale(d.All);})
-    .attr("fill","lightblue")
-    .attr("x",function(d) { return xscale(d.All) - w;})
+    .attr("width",function(d) {return hscale(d.Beer);})
+    .attr("fill","darkblue")
+    .attr("x",function(d) {
+          // if beverages==Beer
+          return xscale(d.Beer) - w;})
     .attr("y",function(d, i) {return hscale(i); })
     .append("title")
     .text(function(d) {return d.Country; });
-    d3.selectAll("#absolute").on("clic",function(){update()});
 }
-
-
-
-/*function update(){
- d3.json("drink-absolute.json", function (data) { dataset_abs = data.data;})
-    svg.selectAll("rect")
-    .data(dataset_abs)
-    .transition()
-    .duration(1000)
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.All);})
-    .attr("fill","lightblue")
-    .attr("x",function(d) { return xscale(d.All) - w;})
-    .attr("y",function(d, i) {return hscale(i); })
-    .append("title")
-    .text(function(d) {return d.Country; });
-    
-}*/
-
 
 
 
@@ -94,6 +132,7 @@ function myFunction() {
     document.getElementById("chartdiv").style.visibility = "visible";
     document.getElementById("mapdiv").style.visibility = "hidden";
     document.getElementById("myDropdown").classList.toggle("show");
+    
 }
 
 function myFunction2() {
@@ -117,16 +156,21 @@ function show_models(){
     model=document.getElementById('select2');
     model.options.length = 1;
     selected=brand.options[brand.selectedIndex].value;
+    selected2=model.options[brand.selectedIndex].text;
     if(selected=="beverage") {
         arr=Beverages_subcat;
+        cat="All";
     }
     else if(selected=="animal") {
         arr=Animal_subcat;
+        cat="AnimalProducts";
     }
     
     else if(selected == "vegetable"){
         arr=Vegetable_subcat;
+        cat="VegetalProducts";
     }
+    else if(selected2 == "Milk"){ subcat= selected2;}
     
     
     for(i=0;i<arr.length;i++) {

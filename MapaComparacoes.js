@@ -3,7 +3,7 @@ var map = AmCharts.makeChart("mapdiv",{
                              theme: "dark",
                              projection: "mercator",
                              panEventsEnabled : true,
-                             backgroundColor : "#B8D7E0",
+                             backgroundColor : "#FFFFFF",
                              backgroundAlpha : 1,
                              zoomControl: {
                              zoomControlEnabled : true

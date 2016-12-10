@@ -5,10 +5,10 @@
  That's why wehave the coordinates stored here
  */
 
-var drink_capita;
+var capita;
 
-d3.json("drink-percapita.json", function (data) {
-        drink_capita = data.data;
+d3.json("dataset_percapita.json", function (data) {
+        capita = data.data;
         gen_vis()
         })
 
@@ -257,163 +257,162 @@ latlong["ZW"] = {"latitude":-20, "longitude":30};
 
 function gen_vis(){
     mapData = [
-               {"code":"AR" , "name":"Argentina", "value":drink_capita[0].All, "color":"#86a965"},
-               {"code":"AU" , "name":"Australia", "value":drink_capita[1].All, "color":"#8aabb0"},
-               {"code":"AT" , "name":"Austria", "value":drink_capita[2].All, "color":"#d8854f"},
-               {"code":"BD" , "name":"Bangladesh", "value":drink_capita[3].All, "color":"#eea638"},
-               {"code":"BE" , "name":"Belgium", "value":drink_capita[4].All, "color":"#d8854f"},
-               {"code":"BO" , "name":"Bolivia", "value":drink_capita[5].All, "color":"#86a965"},
-               {"code":"BA" , "name":"Bosnia and Herzegovina", "value":drink_capita[6].All, "color":"#d8854f"},
-               {"code":"BR" , "name":"Brazil", "value":drink_capita[7].All, "color":"#86a965"},
-               {"code":"BG" , "name":"Bulgaria", "value":drink_capita[8].All, "color":"#d8854f"},
-               {"code":"CA" , "name":"Canada", "value":drink_capita[9].All, "color":"#a7a737"},
-               {"code":"CL" , "name":"Chile", "value":drink_capita[10].All, "color":"#86a965"},
-               {"code":"CN" , "name":"China", "value":drink_capita[11].All, "color":"#eea638"},
-               {"code":"CO" , "name":"Colombia", "value":drink_capita[12].All, "color":"#86a965"},
-               {"code":"CR" , "name":"Costa Rica", "value":drink_capita[13].All, "color":"#a7a737"},
-               {"code":"CZ" , "name":"Czech Rep.", "value":drink_capita[14].All, "color":"#d8854f"},
-               {"code":"DK" , "name":"Denmark", "value":drink_capita[15].All, "color":"#d8854f"},
-               {"code":"DO" , "name":"Dominican Rep.", "value":drink_capita[16].All, "color":"#a7a737"},
-               {"code":"EC" , "name":"Ecuador", "value":drink_capita[17].All, "color":"#86a965"},
-               {"code":"EG" , "name":"Egypt", "value":drink_capita[18].All, "color":"#de4c4f"},
-               {"code":"ET" , "name":"Ethiopia", "value":drink_capita[19].All, "color":"#de4c4f"},
-               {"code":"FI" , "name":"Finland", "value":drink_capita[20].All, "color":"#d8854f"},
-               {"code":"FR" , "name":"France", "value":drink_capita[21].All, "color":"#d8854f"},
-               {"code":"DE" , "name":"Germany", "value":drink_capita[22].All, "color":"#d8854f"},
-               {"code":"GH" , "name":"Ghana", "value":drink_capita[23].All, "color":"#de4c4f"},
-               {"code":"GR" , "name":"Greece", "value":drink_capita[24].All, "color":"#d8854f"},
-               {"code":"HT" , "name":"Haiti", "value":drink_capita[25].All, "color":"#a7a737"},
-               {"code":"HU" , "name":"Hungary", "value":drink_capita[26].All, "color":"#d8854f"},
-               {"code":"IS" , "name":"Iceland", "value":drink_capita[27].All, "color":"#d8854f"},
-               {"code":"IN" , "name":"India", "value":drink_capita[28].All, "color":"#eea638"},
-               {"code":"ID" , "name":"Indonesia", "value":drink_capita[29].All, "color":"#eea638"},
-               {"code":"IR" , "name":"Iran", "value":drink_capita[30].All, "color":"#eea638"},
-               {"code":"IL" , "name":"Israel", "value":drink_capita[31].All, "color":"#eea638"},
-               {"code":"IT" , "name":"Italy", "value":drink_capita[32].All4, "color":"#d8854f"},
-               {"code":"JM" , "name":"Jamaica", "value":drink_capita[33].All, "color":"#a7a737"},
-               {"code":"JP" , "name":"Japan", "value":drink_capita[34].All, "color":"#eea638"},
-               {"code":"KE" , "name":"Kenya", "value":drink_capita[35].All, "color":"#de4c4f"},
-               {"code":"MG" , "name":"Madagascar", "value":drink_capita[36].All, "color":"#de4c4f"},
-               {"code":"MW" , "name":"Malawi", "value":drink_capita[37].All, "color":"#de4c4f"},
-               {"code":"MX" , "name":"Mexico", "value":drink_capita[38].All, "color":"#a7a737"},
-               {"code":"MN" , "name":"Mongolia", "value":drink_capita[39].All, "color":"#eea638"},
-               {"code":"MA" , "name":"Morocco", "value":drink_capita[40].All, "color":"#de4c4f"},
-               {"code":"NL" , "name":"Netherlands", "value":drink_capita[41].All, "color":"#d8854f"},
-               {"code":"NZ" , "name":"New Zealand", "value":drink_capita[42].All, "color":"#8aabb0"},
-               {"code":"NG" , "name":"Nigeria", "value":drink_capita[43].All, "color":"#de4c4f"},
-               {"code":"PK" , "name":"Pakistan", "value":drink_capita[44].All, "color":"#eea638"},
-               {"code":"PY" , "name":"Paraguay", "value":drink_capita[45].All, "color":"#86a965"},
-               {"code":"PE" , "name":"Peru", "value":drink_capita[46].All, "color":"#86a965"},
-               {"code":"PH" , "name":"Philippines", "value":drink_capita[47].All, "color":"#eea638"},
-               {"code":"PL" , "name":"Poland", "value":drink_capita[48].All, "color":"#d8854f"},
-               {"code":"PT" , "name":"Portugal", "value":drink_capita[49].All, "color":"#d8854f"},
-               {"code":"RO" , "name":"Romania", "value":drink_capita[50].All, "color":"#d8854f"},
-               {"code":"RU" , "name":"Russia", "value":drink_capita[52].All, "color":"#d8854f"},
-               {"code":"SA" , "name":"Saudi Arabia", "value":drink_capita[53].All, "color":"#eea638"},
-               {"code":"SN" , "name":"Senegal", "value":drink_capita[54].All, "color":"#de4c4f"},
-               {"code":"SL" , "name":"Sierra Leone", "value":drink_capita[55].All, "color":"#de4c4f"},
-               {"code":"ZA" , "name":"South Africa", "value":drink_capita[56].All, "color":"#de4c4f"},
-               {"code":"ES" , "name":"Spain", "value":drink_capita[57].All, "color":"#d8854f"},
-               {"code":"LK" , "name":"Sri Lanka", "value":drink_capita[58].All, "color":"#eea638"},
-               {"code":"SE" , "name":"Sweden", "value":drink_capita[59].All, "color":"#d8854f"},
-               {"code":"CH" , "name":"Switzerland", "value":drink_capita[60].All, "color":"#d8854f"},
-               {"code":"TH" , "name":"Thailand", "value":drink_capita[61].All, "color":"#eea638"},
-               {"code":"TN" , "name":"Tunisia", "value":drink_capita[62].All, "color":"#de4c4f"},
-               {"code":"TR" , "name":"Turkey", "value":drink_capita[63].All, "color":"#d8854f"},
-               {"code":"UA" , "name":"Ukraine", "value":drink_capita[64].All, "color":"#d8854f"},
-               {"code":"AE" , "name":"United Arab Emirates", "value":drink_capita[65].All, "color":"#eea638"},
-               {"code":"GB" , "name":"United Kingdom", "value":drink_capita[66].All, "color":"#d8854f"},
-               {"code":"US" , "name":"United States", "value":drink_capita[67].All, "color":"#a7a737"}]
-
-
-
-// get min and max values
-var minBulletSize = 0.1;
-var maxBulletSize = 30;
-var min = Infinity;
-var max = -Infinity;
-for ( var i = 0; i < mapData.length; i++ ) {
-    var value = mapData[ i ].value;
-    if ( value < min ) {
-        min = value;
-    }
-    if ( value > max ) {
-        max = value;
-    }
-}
-
-// it's better to use circle square to show difference between values, not a radius
-var maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI;
-var minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
-
-// create circle for each country
-var images = [];
-for ( var i = 0; i < mapData.length; i++ ) {
-    var dataItem = mapData[ i ];
-    var value = dataItem.value;
-    // calculate size of a bubble
-    var square = ( value - min ) / ( max - min ) * ( maxSquare - minSquare ) + minSquare;
-    if ( square < minSquare ) {
-        square = minSquare;
-    }
-    var size = Math.sqrt( square / ( Math.PI * 2 ) );
-    var id = dataItem.code;
+               {"code":"AR" , "name":"Argentina", "value":capita[0].All, "color":"#86a965"},
+               {"code":"AU" , "name":"Australia", "value":capita[1].All, "color":"#8aabb0"},
+               {"code":"AT" , "name":"Austria", "value":capita[2].All, "color":"#d8854f"},
+               {"code":"BD" , "name":"Bangladesh", "value":capita[3].All, "color":"#eea638"},
+               {"code":"BE" , "name":"Belgium", "value":capita[4].All, "color":"#d8854f"},
+               {"code":"BO" , "name":"Bolivia", "value":capita[5].All, "color":"#86a965"},
+               {"code":"BA" , "name":"Bosnia and Herzegovina", "value":capita[6].All, "color":"#d8854f"},
+               {"code":"BR" , "name":"Brazil", "value":capita[7].All, "color":"#86a965"},
+               {"code":"BG" , "name":"Bulgaria", "value":capita[8].All, "color":"#d8854f"},
+               {"code":"CA" , "name":"Canada", "value":capita[9].All, "color":"#a7a737"},
+               {"code":"CL" , "name":"Chile", "value":capita[10].All, "color":"#86a965"},
+               {"code":"CN" , "name":"China", "value":capita[11].All, "color":"#eea638"},
+               {"code":"CO" , "name":"Colombia", "value":capita[12].All, "color":"#86a965"},
+               {"code":"CR" , "name":"Costa Rica", "value":capita[13].All, "color":"#a7a737"},
+               {"code":"CZ" , "name":"Czech Rep.", "value":capita[14].All, "color":"#d8854f"},
+               {"code":"DK" , "name":"Denmark", "value":capita[15].All, "color":"#d8854f"},
+               {"code":"DO" , "name":"Dominican Rep.", "value":capita[16].All, "color":"#a7a737"},
+               {"code":"EC" , "name":"Ecuador", "value":capita[17].All, "color":"#86a965"},
+               {"code":"EG" , "name":"Egypt", "value":capita[18].All, "color":"#de4c4f"},
+               {"code":"ET" , "name":"Ethiopia", "value":capita[19].All, "color":"#de4c4f"},
+               {"code":"FI" , "name":"Finland", "value":capita[20].All, "color":"#d8854f"},
+               {"code":"FR" , "name":"France", "value":capita[21].All, "color":"#d8854f"},
+               {"code":"DE" , "name":"Germany", "value":capita[22].All, "color":"#d8854f"},
+               {"code":"GH" , "name":"Ghana", "value":capita[23].All, "color":"#de4c4f"},
+               {"code":"GR" , "name":"Greece", "value":capita[24].All, "color":"#d8854f"},
+               {"code":"HT" , "name":"Haiti", "value":capita[25].All, "color":"#a7a737"},
+               {"code":"HU" , "name":"Hungary", "value":capita[26].All, "color":"#d8854f"},
+               {"code":"IS" , "name":"Iceland", "value":capita[27].All, "color":"#d8854f"},
+               {"code":"IN" , "name":"India", "value":capita[28].All, "color":"#eea638"},
+               {"code":"ID" , "name":"Indonesia", "value":capita[29].All, "color":"#eea638"},
+               {"code":"IR" , "name":"Iran", "value":capita[30].All, "color":"#eea638"},
+               {"code":"IL" , "name":"Israel", "value":capita[31].All, "color":"#eea638"},
+               {"code":"IT" , "name":"Italy", "value":capita[32].All4, "color":"#d8854f"},
+               {"code":"JM" , "name":"Jamaica", "value":capita[33].All, "color":"#a7a737"},
+               {"code":"JP" , "name":"Japan", "value":capita[34].All, "color":"#eea638"},
+               {"code":"KE" , "name":"Kenya", "value":capita[35].All, "color":"#de4c4f"},
+               {"code":"MG" , "name":"Madagascar", "value":capita[36].All, "color":"#de4c4f"},
+               {"code":"MW" , "name":"Malawi", "value":capita[37].All, "color":"#de4c4f"},
+               {"code":"MX" , "name":"Mexico", "value":capita[38].All, "color":"#a7a737"},
+               {"code":"MN" , "name":"Mongolia", "value":capita[39].All, "color":"#eea638"},
+               {"code":"MA" , "name":"Morocco", "value":capita[40].All, "color":"#de4c4f"},
+               {"code":"NL" , "name":"Netherlands", "value":capita[41].All, "color":"#d8854f"},
+               {"code":"NZ" , "name":"New Zealand", "value":capita[42].All, "color":"#8aabb0"},
+               {"code":"NG" , "name":"Nigeria", "value":capita[43].All, "color":"#de4c4f"},
+               {"code":"PK" , "name":"Pakistan", "value":capita[44].All, "color":"#eea638"},
+               {"code":"PY" , "name":"Paraguay", "value":capita[45].All, "color":"#86a965"},
+               {"code":"PE" , "name":"Peru", "value":capita[46].All, "color":"#86a965"},
+               {"code":"PH" , "name":"Philippines", "value":capita[47].All, "color":"#eea638"},
+               {"code":"PL" , "name":"Poland", "value":capita[48].All, "color":"#d8854f"},
+               {"code":"PT" , "name":"Portugal", "value":capita[49].All, "color":"#d8854f"},
+               {"code":"RO" , "name":"Romania", "value":capita[50].All, "color":"#d8854f"},
+               {"code":"RU" , "name":"Russia", "value":capita[52].All, "color":"#d8854f"},
+               {"code":"SA" , "name":"Saudi Arabia", "value":capita[53].All, "color":"#eea638"},
+               {"code":"SN" , "name":"Senegal", "value":capita[54].All, "color":"#de4c4f"},
+               {"code":"SL" , "name":"Sierra Leone", "value":capita[55].All, "color":"#de4c4f"},
+               {"code":"ZA" , "name":"South Africa", "value":capita[56].All, "color":"#de4c4f"},
+               {"code":"ES" , "name":"Spain", "value":capita[57].All, "color":"#d8854f"},
+               {"code":"LK" , "name":"Sri Lanka", "value":capita[58].All, "color":"#eea638"},
+               {"code":"SE" , "name":"Sweden", "value":capita[59].All, "color":"#d8854f"},
+               {"code":"CH" , "name":"Switzerland", "value":capita[60].All, "color":"#d8854f"},
+               {"code":"TH" , "name":"Thailand", "value":capita[61].All, "color":"#eea638"},
+               {"code":"TN" , "name":"Tunisia", "value":capita[62].All, "color":"#de4c4f"},
+               {"code":"TR" , "name":"Turkey", "value":capita[63].All, "color":"#d8854f"},
+               {"code":"UA" , "name":"Ukraine", "value":capita[64].All, "color":"#d8854f"},
+               {"code":"AE" , "name":"United Arab Emirates", "value":capita[65].All, "color":"#eea638"},
+               {"code":"GB" , "name":"United Kingdom", "value":capita[66].All, "color":"#d8854f"},
+               {"code":"US" , "name":"United States", "value":capita[67].All, "color":"#a7a737"}]
     
-    images.push( {
-                "type": "circle",
-                "theme": "light",
-                
-                "width": size,
-                "height": size,
-                "color": dataItem.color,
-                "alpha":0.7,
-                "longitude": latlong[ id ].longitude,
-                "latitude": latlong[ id ].latitude,
-                "title": dataItem.name + ":" + value ,
-                "value": value
-                } );
+    
+    
+    // get min and max values
+    var minBulletSize = 0.1;
+    var maxBulletSize = 30;
+    var min = Infinity;
+    var max = -Infinity;
+    for ( var i = 0; i < mapData.length; i++ ) {
+        var value = mapData[ i ].value;
+        if ( value < min ) {
+            min = value;
+        }
+        if ( value > max ) {
+            max = value;
+        }
+    }
+    
+    // it's better to use circle square to show difference between values, not a radius
+    var maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI;
+    var minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
+    
+    // create circle for each country
+    var images = [];
+    for ( var i = 0; i < mapData.length; i++ ) {
+        var dataItem = mapData[ i ];
+        var value = dataItem.value;
+        // calculate size of a bubble
+        var square = ( value - min ) / ( max - min ) * ( maxSquare - minSquare ) + minSquare;
+        if ( square < minSquare ) {
+            square = minSquare;
+        }
+        var size = Math.sqrt( square / ( Math.PI * 2 ) );
+        var id = dataItem.code;
+        
+        images.push( {
+                    "type": "circle",
+                    "theme": "light",
+                    
+                    "width": size,
+                    "height": size,
+                    "color": dataItem.color,
+                    "alpha":0.7,
+                    "longitude": latlong[ id ].longitude,
+                    "latitude": latlong[ id ].latitude,
+                    "title": dataItem.name + ":" + value ,
+                    "value": value
+                    } );
+    }
+    
+    // build map
+    var map = AmCharts.makeChart( "chartdiv", {
+                                 type: "map",
+                                 projection: "mercator",
+                                 "panEventsEnabled" : true,
+                                 backgroundColor : "#B8D7E0",
+                                 areasSettings: {
+                                 //"unlistedAreasColor": "#000000",
+                                 //"unlistedAreasAlpha": 0.1
+                                 },
+                                 dataProvider: {
+                                 map: "worldLow",
+                                 images: images
+                                 },
+                                 "listeners": [ {
+                                               "event": "clickMapObject",
+                                               "method": function( event ) {
+                                               map.selectedObject = images;
+                                               
+                                               // toggle showAsSelected
+                                               event.mapObject.showAsSelected = !event.mapObject.showAsSelected;
+                                               
+                                               
+                                               // bring it to an appropriate color
+                                               map.returnInitialColor( event.mapObject );
+                                               
+                                               
+                                               // let's build a list of currently selected states
+                                               var states = [];
+                                               for ( var i in map.dataProvider.images ) {
+                                               var area = map.dataProvider.images[ i ];
+                                               if ( area.showAsSelected ) {
+                                               states.push( area.title );
+                                               }
+                                               }
+                                               }
+                                               } ],
+                                 export: {
+                                 enabled: false
+                                 }
+                                 } );
 }
-
-// build map
-var map = AmCharts.makeChart( "chartdiv", {
-                             type: "map",
-                             projection: "mercator",
-                             "panEventsEnabled" : true,
-                             backgroundColor : "#B8D7E0",
-                             areasSettings: {
-                             //"unlistedAreasColor": "#000000",
-                             //"unlistedAreasAlpha": 0.1
-                             },
-                             dataProvider: {
-                             map: "worldLow",
-                             images: images
-                             },
-                             "listeners": [ {
-                                           "event": "clickMapObject",
-                                           "method": function( event ) {
-                                            map.selectedObject = images;
-                                           
-                                           // toggle showAsSelected
-                                                event.mapObject.showAsSelected = !event.mapObject.showAsSelected;
-                                           
-                                           
-                                           // bring it to an appropriate color
-                                                map.returnInitialColor( event.mapObject );
-                                           
-                                           
-                                           // let's build a list of currently selected states
-                                                var states = [];
-                                                for ( var i in map.dataProvider.images ) {
-                                                    var area = map.dataProvider.images[ i ];
-                                                    if ( area.showAsSelected ) {
-                                                        states.push( area.title );
-                                                    }
-                                                }
-                                           }
-                             } ],
-                             export: {
-                             enabled: false
-                             }
-                             } );
-}
-

@@ -16,6 +16,8 @@
 
 
   <body>
+      <span class="btn btn1" id="absolute" >Absolute</span>
+      <span class="btn btn2" id="capita" >Per Capita</span>
     <h1>Food Consumption and Distribution Worldwide!</h1>
             <div id="chartdiv">
                 <script src="MapaConsumo.js"></script>
@@ -23,10 +25,7 @@
             <div id="mapdiv">
                 <script src="MapaComparacoes.js"></script>
             </div>
-            <span class="btn btn1"	id="absolute" >Absolute</span>
-            <span class="btn btn2"	id="capita" >Per Capita</span>
             <div id="barchart">
-                <svg width="330" height="555"></svg>
             </div>
             <div class="dropdown">
                 <button onclick="myFunction()" class="dropbtn">Consumptions
@@ -36,7 +35,7 @@
                         <option value="cat" selected> Category</option>
                         <option value="beverage">Beverages</option>
                         <option value="animal">Animal Products</option>
-                        <option value="vegetable">Vegetable Products</option>
+                        <option value="vegetable">Vegetal Products</option>
                         
                     </select>
                     <select name="select2" id="select2" class="LABEL">
@@ -45,7 +44,7 @@
                 </div>
             </div>
             <div id="myDropdown3" class="dropdown2">
-                <button onclick="myFunction2()" class="dropbtn2">Comparisions
+                <button onclick="myFunction2()" class="dropbtn2">Comparisons
                 </button>
                 <div id="myDropdown2" class="dropdown-content2">
                     <input class="radio" type="radio" name="food" value="Consumptions" font-size:"12px"  font-family:"arial">Consumptions<br>

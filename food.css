@@ -32,12 +32,12 @@ body{
 }
 
 #mapdiv {
-    top:50px;
+    top:55px;
     bottom:0px;
-    left:5px;
+    left:8px;
     right:0px;
     width: 755px;
-    height: 570px;
+    height: 560px;
     position: absolute;
     visibility: hidden;
 }
@@ -47,16 +47,13 @@ body{
     width: 360px;
     height: 560px;
     position: relative;
-    left: 765px;
-    top: -590px;
-    bottom: 5px;
-    visibility:visible;
+    left: 760px;
+    top: -550px;
 }
 
 .btn {
-    position:relative;
-    left: 500px;
-    top: -600px;
+    position:absolute;
+    left: 850px;
     color: white;
     padding: 8px 14px;
     text-align: center;
@@ -83,7 +80,7 @@ body{
 }
 
 .btn1 {
-    margin-left: 350px;
+    margin-left: 100px;
     background-color: white;
     color: black;
     border: 2px solid #2885a4;
