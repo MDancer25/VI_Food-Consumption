@@ -57,14 +57,14 @@ function gen_capita() {
               return xscale(d.Beer) - w;})
         .attr("y",function(d, i) {return hscale(i); })
         .append("title")
-            .text(function(d) {return d.Country; });
-    d3.selectAll("#absolute").on("clic", function(){
+        .text(function(d) {return d.Country; });
+    d3.selectAll("#absolute").on("click",function(){
                                  console.log("ENTROU ON CLICK ABS");
-                                 dataset = drink_abs;
+                                 dataset = abs;
                                  gen_abs();
                                  });
-    d3.selectAll("#capita").on("clic", function(){
-                               dataset = abs;
+    d3.selectAll("#capita").on("click", function(){
+                               dataset = capita;
                                gen_capita();
                                });
 
@@ -103,16 +103,17 @@ function gen_abs(){
     svg.selectAll("rect")
     .data(dataset)
     .enter().append("rect")
+    .transition()
+    .duration(1000)
     .attr("transform", "translate(26,26)")
     .attr("height",15)
     .attr("width",function(d) {return hscale(d.Beer);})
     .attr("fill","darkblue")
     .attr("x",function(d) {
-          // if beverages==Beer
           return xscale(d.Beer) - w;})
     .attr("y",function(d, i) {return hscale(i); })
-    .append("title")
-    .text(function(d) {return d.Country; });
+    //.append("title")
+    //.text(function(d) {return d.Country; });
 }
 
 
