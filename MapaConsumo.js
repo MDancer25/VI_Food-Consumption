@@ -5,13 +5,16 @@
  That's why wehave the coordinates stored here
  */
 
-var capita;
+var capita, abs, info, dataset_choosen;
 
 d3.json("dataset_percapita.json", function (data) {
         capita = data.data;
-        gen_vis()
+        d3.json("dataset_absolute.json", function (data) {
+                abs = data.data;
+                info = [];
+                gen_vis(info);
+                })
         })
-
 
 var latlong = {};
 var mapData = [];
@@ -255,75 +258,76 @@ latlong["ZA"] = {"latitude":-29, "longitude":24};
 latlong["ZM"] = {"latitude":-15, "longitude":30};
 latlong["ZW"] = {"latitude":-20, "longitude":30};
 
-function gen_vis(){
+function gen_vis(info){
+    
     mapData = [
-               {"code":"AR" , "name":"Argentina", "value":capita[0].All, "color":"#86a965"},
-               {"code":"AU" , "name":"Australia", "value":capita[1].All, "color":"#8aabb0"},
-               {"code":"AT" , "name":"Austria", "value":capita[2].All, "color":"#d8854f"},
-               {"code":"BD" , "name":"Bangladesh", "value":capita[3].All, "color":"#eea638"},
-               {"code":"BE" , "name":"Belgium", "value":capita[4].All, "color":"#d8854f"},
-               {"code":"BO" , "name":"Bolivia", "value":capita[5].All, "color":"#86a965"},
-               {"code":"BA" , "name":"Bosnia and Herzegovina", "value":capita[6].All, "color":"#d8854f"},
-               {"code":"BR" , "name":"Brazil", "value":capita[7].All, "color":"#86a965"},
-               {"code":"BG" , "name":"Bulgaria", "value":capita[8].All, "color":"#d8854f"},
-               {"code":"CA" , "name":"Canada", "value":capita[9].All, "color":"#a7a737"},
-               {"code":"CL" , "name":"Chile", "value":capita[10].All, "color":"#86a965"},
-               {"code":"CN" , "name":"China", "value":capita[11].All, "color":"#eea638"},
-               {"code":"CO" , "name":"Colombia", "value":capita[12].All, "color":"#86a965"},
-               {"code":"CR" , "name":"Costa Rica", "value":capita[13].All, "color":"#a7a737"},
-               {"code":"CZ" , "name":"Czech Rep.", "value":capita[14].All, "color":"#d8854f"},
-               {"code":"DK" , "name":"Denmark", "value":capita[15].All, "color":"#d8854f"},
-               {"code":"DO" , "name":"Dominican Rep.", "value":capita[16].All, "color":"#a7a737"},
-               {"code":"EC" , "name":"Ecuador", "value":capita[17].All, "color":"#86a965"},
-               {"code":"EG" , "name":"Egypt", "value":capita[18].All, "color":"#de4c4f"},
-               {"code":"ET" , "name":"Ethiopia", "value":capita[19].All, "color":"#de4c4f"},
-               {"code":"FI" , "name":"Finland", "value":capita[20].All, "color":"#d8854f"},
-               {"code":"FR" , "name":"France", "value":capita[21].All, "color":"#d8854f"},
-               {"code":"DE" , "name":"Germany", "value":capita[22].All, "color":"#d8854f"},
-               {"code":"GH" , "name":"Ghana", "value":capita[23].All, "color":"#de4c4f"},
-               {"code":"GR" , "name":"Greece", "value":capita[24].All, "color":"#d8854f"},
-               {"code":"HT" , "name":"Haiti", "value":capita[25].All, "color":"#a7a737"},
-               {"code":"HU" , "name":"Hungary", "value":capita[26].All, "color":"#d8854f"},
-               {"code":"IS" , "name":"Iceland", "value":capita[27].All, "color":"#d8854f"},
-               {"code":"IN" , "name":"India", "value":capita[28].All, "color":"#eea638"},
-               {"code":"ID" , "name":"Indonesia", "value":capita[29].All, "color":"#eea638"},
-               {"code":"IR" , "name":"Iran", "value":capita[30].All, "color":"#eea638"},
-               {"code":"IL" , "name":"Israel", "value":capita[31].All, "color":"#eea638"},
-               {"code":"IT" , "name":"Italy", "value":capita[32].All4, "color":"#d8854f"},
-               {"code":"JM" , "name":"Jamaica", "value":capita[33].All, "color":"#a7a737"},
-               {"code":"JP" , "name":"Japan", "value":capita[34].All, "color":"#eea638"},
-               {"code":"KE" , "name":"Kenya", "value":capita[35].All, "color":"#de4c4f"},
-               {"code":"MG" , "name":"Madagascar", "value":capita[36].All, "color":"#de4c4f"},
-               {"code":"MW" , "name":"Malawi", "value":capita[37].All, "color":"#de4c4f"},
-               {"code":"MX" , "name":"Mexico", "value":capita[38].All, "color":"#a7a737"},
-               {"code":"MN" , "name":"Mongolia", "value":capita[39].All, "color":"#eea638"},
-               {"code":"MA" , "name":"Morocco", "value":capita[40].All, "color":"#de4c4f"},
-               {"code":"NL" , "name":"Netherlands", "value":capita[41].All, "color":"#d8854f"},
-               {"code":"NZ" , "name":"New Zealand", "value":capita[42].All, "color":"#8aabb0"},
-               {"code":"NG" , "name":"Nigeria", "value":capita[43].All, "color":"#de4c4f"},
-               {"code":"PK" , "name":"Pakistan", "value":capita[44].All, "color":"#eea638"},
-               {"code":"PY" , "name":"Paraguay", "value":capita[45].All, "color":"#86a965"},
-               {"code":"PE" , "name":"Peru", "value":capita[46].All, "color":"#86a965"},
-               {"code":"PH" , "name":"Philippines", "value":capita[47].All, "color":"#eea638"},
-               {"code":"PL" , "name":"Poland", "value":capita[48].All, "color":"#d8854f"},
-               {"code":"PT" , "name":"Portugal", "value":capita[49].All, "color":"#d8854f"},
-               {"code":"RO" , "name":"Romania", "value":capita[50].All, "color":"#d8854f"},
-               {"code":"RU" , "name":"Russia", "value":capita[52].All, "color":"#d8854f"},
-               {"code":"SA" , "name":"Saudi Arabia", "value":capita[53].All, "color":"#eea638"},
-               {"code":"SN" , "name":"Senegal", "value":capita[54].All, "color":"#de4c4f"},
-               {"code":"SL" , "name":"Sierra Leone", "value":capita[55].All, "color":"#de4c4f"},
-               {"code":"ZA" , "name":"South Africa", "value":capita[56].All, "color":"#de4c4f"},
-               {"code":"ES" , "name":"Spain", "value":capita[57].All, "color":"#d8854f"},
-               {"code":"LK" , "name":"Sri Lanka", "value":capita[58].All, "color":"#eea638"},
-               {"code":"SE" , "name":"Sweden", "value":capita[59].All, "color":"#d8854f"},
-               {"code":"CH" , "name":"Switzerland", "value":capita[60].All, "color":"#d8854f"},
-               {"code":"TH" , "name":"Thailand", "value":capita[61].All, "color":"#eea638"},
-               {"code":"TN" , "name":"Tunisia", "value":capita[62].All, "color":"#de4c4f"},
-               {"code":"TR" , "name":"Turkey", "value":capita[63].All, "color":"#d8854f"},
-               {"code":"UA" , "name":"Ukraine", "value":capita[64].All, "color":"#d8854f"},
-               {"code":"AE" , "name":"United Arab Emirates", "value":capita[65].All, "color":"#eea638"},
-               {"code":"GB" , "name":"United Kingdom", "value":capita[66].All, "color":"#d8854f"},
-               {"code":"US" , "name":"United States", "value":capita[67].All, "color":"#a7a737"}]
+               {"code":"AR" , "name":"Argentina", "value":info[0], "color":"#86a965"},
+               {"code":"AU" , "name":"Australia", "value":info[1], "color":"#8aabb0"},
+               {"code":"AT" , "name":"Austria", "value":info[2], "color":"#d8854f"},
+               {"code":"BD" , "name":"Bangladesh", "value":info[3], "color":"#eea638"},
+               {"code":"BE" , "name":"Belgium", "value":info[4], "color":"#d8854f"},
+               {"code":"BO" , "name":"Bolivia", "value":info[5], "color":"#86a965"},
+               {"code":"BA" , "name":"Bosnia and Herzegovina", "value":info[6], "color":"#d8854f"},
+               {"code":"BR" , "name":"Brazil", "value":info[7], "color":"#86a965"},
+               {"code":"BG" , "name":"Bulgaria", "value":info[8], "color":"#d8854f"},
+               {"code":"CA" , "name":"Canada", "value":info[9], "color":"#a7a737"},
+               {"code":"CL" , "name":"Chile", "value":info[10], "color":"#86a965"},
+               {"code":"CN" , "name":"China", "value":info[11], "color":"#eea638"},
+               {"code":"CO" , "name":"Colombia", "value":info[12], "color":"#86a965"},
+               {"code":"CR" , "name":"Costa Rica", "value":info[13], "color":"#a7a737"},
+               {"code":"CZ" , "name":"Czech Rep.", "value":info[14], "color":"#d8854f"},
+               {"code":"DK" , "name":"Denmark", "value":info[15], "color":"#d8854f"},
+               {"code":"DO" , "name":"Dominican Rep.", "value":info[16], "color":"#a7a737"},
+               {"code":"EC" , "name":"Ecuador", "value":info[17], "color":"#86a965"},
+               {"code":"EG" , "name":"Egypt", "value":info[18], "color":"#de4c4f"},
+               {"code":"ET" , "name":"Ethiopia", "value":info[19], "color":"#de4c4f"},
+               {"code":"FI" , "name":"Finland", "value":info[20], "color":"#d8854f"},
+               {"code":"FR" , "name":"France", "value":info[21], "color":"#d8854f"},
+               {"code":"DE" , "name":"Germany", "value":info[22], "color":"#d8854f"},
+               {"code":"GH" , "name":"Ghana", "value":info[23], "color":"#de4c4f"},
+               {"code":"GR" , "name":"Greece", "value":info[24], "color":"#d8854f"},
+               {"code":"HT" , "name":"Haiti", "value":info[25], "color":"#a7a737"},
+               {"code":"HU" , "name":"Hungary", "value":info[26], "color":"#d8854f"},
+               {"code":"IS" , "name":"Iceland", "value":info[27], "color":"#d8854f"},
+               {"code":"IN" , "name":"India", "value":info[28], "color":"#eea638"},
+               {"code":"ID" , "name":"Indonesia", "value":info[29], "color":"#eea638"},
+               {"code":"IR" , "name":"Iran", "value":info[30], "color":"#eea638"},
+               {"code":"IL" , "name":"Israel", "value":info[31], "color":"#eea638"},
+               {"code":"IT" , "name":"Italy", "value":info[32], "color":"#d8854f"},
+               {"code":"JM" , "name":"Jamaica", "value":info[33], "color":"#a7a737"},
+               {"code":"JP" , "name":"Japan", "value":info[34], "color":"#eea638"},
+               {"code":"KE" , "name":"Kenya", "value":info[35], "color":"#de4c4f"},
+               {"code":"MG" , "name":"Madagascar", "value":info[36], "color":"#de4c4f"},
+               {"code":"MW" , "name":"Malawi", "value":info[37], "color":"#de4c4f"},
+               {"code":"MX" , "name":"Mexico", "value":info[38], "color":"#a7a737"},
+               {"code":"MN" , "name":"Mongolia", "value":info[39], "color":"#eea638"},
+               {"code":"MA" , "name":"Morocco", "value":info[40], "color":"#de4c4f"},
+               {"code":"NL" , "name":"Netherlands", "value":info[41], "color":"#d8854f"},
+               {"code":"NZ" , "name":"New Zealand", "value":info[42], "color":"#8aabb0"},
+               {"code":"NG" , "name":"Nigeria", "value":info[43], "color":"#de4c4f"},
+               {"code":"PK" , "name":"Pakistan", "value":info[44], "color":"#eea638"},
+               {"code":"PY" , "name":"Paraguay", "value":info[45], "color":"#86a965"},
+               {"code":"PE" , "name":"Peru", "value":info[46], "color":"#86a965"},
+               {"code":"PH" , "name":"Philippines", "value":info[47], "color":"#eea638"},
+               {"code":"PL" , "name":"Poland", "value":info[48], "color":"#d8854f"},
+               {"code":"PT" , "name":"Portugal", "value":info[49], "color":"#d8854f"},
+               {"code":"RO" , "name":"Romania", "value":info[50], "color":"#d8854f"},
+               {"code":"RU" , "name":"Russia", "value":info[52], "color":"#d8854f"},
+               {"code":"SA" , "name":"Saudi Arabia", "value":info[53], "color":"#eea638"},
+               {"code":"SN" , "name":"Senegal", "value":info[54], "color":"#de4c4f"},
+               {"code":"SL" , "name":"Sierra Leone", "value":info[55], "color":"#de4c4f"},
+               {"code":"ZA" , "name":"South Africa", "value":info[56], "color":"#de4c4f"},
+               {"code":"ES" , "name":"Spain", "value":info[57], "color":"#d8854f"},
+               {"code":"LK" , "name":"Sri Lanka", "value":info[58], "color":"#eea638"},
+               {"code":"SE" , "name":"Sweden", "value":info[59], "color":"#d8854f"},
+               {"code":"CH" , "name":"Switzerland", "value":info[60], "color":"#d8854f"},
+               {"code":"TH" , "name":"Thailand", "value":info[61], "color":"#eea638"},
+               {"code":"TN" , "name":"Tunisia", "value":info[62], "color":"#de4c4f"},
+               {"code":"TR" , "name":"Turkey", "value":info[63], "color":"#d8854f"},
+               {"code":"UA" , "name":"Ukraine", "value":info[64], "color":"#d8854f"},
+               {"code":"AE" , "name":"United Arab Emirates", "value":info[65], "color":"#eea638"},
+               {"code":"GB" , "name":"United Kingdom", "value":info[66], "color":"#d8854f"},
+               {"code":"US" , "name":"United States", "value":info[67], "color":"#a7a737"}]
     
     
     
@@ -415,4 +419,117 @@ function gen_vis(){
                                  enabled: false
                                  }
                                  } );
+}
+
+function updateMap(){
+    if (dataset_choosen == "abs"){
+        updateMapAbs();
+    }
+    else{
+        updateMapCapita();
+    }
+}
+
+
+function updateMapCapita(){
+    dataset_choosen = "capita";
+    brand=document.getElementById('select1');
+    selected=brand.options[brand.selectedIndex].value;
+    console.log(selected);
+    brand2=document.getElementById('select2');
+    selected2=brand2.options[brand2.selectedIndex].text;
+    console.log(selected2);
+    info=[];
+    
+    for (i=0; i<68; i ++){
+        if(selected == "beverage"){
+            
+            if(selected2 == "Subcategory"){ info.push(capita[i].All); }
+            else if(selected2 == "Milk"){ info.push(capita[i].Milk); }
+            else if(selected2 == "Coffee"){ info.push(capita[i].Coffee); }
+            else if(selected2 == "Beer"){ info.push(capita[i].Beer); }
+            else if(selected2 == "Wine"){ info.push(capita[i].Wine); }
+            else if(selected2 == "Spirits"){ info.push(capita[i].Spirits); }
+            else if(selected2 == "Other"){ info.push(capita[i].Other); }
+            
+        }
+        else if(selected == "animal"){
+            
+            if(selected2 == "Subcategory"){ info.push(capita[i].AnimalProducts); }
+            else if(selected2 == "Bovine Meat"){ info.push(capita[i].BovineMeat); }
+            else if(selected2 == "Pigmeat"){ info.push(capita[i].Pigmeat); }
+            else if(selected2 == "Poultry Meat"){ info.push(capita[i].PoultryMeat); }
+            else if(selected2 == "Mutton & Goat Meat"){ info.push(capita[i].MuttonGoatMeat); }
+            else if(selected2 == "Offals"){ info.push(capita[i].Offals); }
+            else if(selected2 == "Fish & Seafood"){ info.push(capita[i].FishSeafood); }
+            else if(selected2 == "Eggs"){ info.push(capita[i].Eggs); }
+            else if(selected2 == "Cheese"){ info.push(capita[i].Cheese); }
+            else if(selected2 == "Butter"){ info.push(capita[i].Butter); }
+            else if(selected2 == "Honey"){ info.push(capita[i].Honey); }
+        }
+        else if(selected == "vegetable"){
+            
+            if(selected2 == "Subcategory"){ info.push(capita[i].VegetalProducts); }
+            else if(selected2 == "Fruits"){ info.push(capita[i].Fruits); }
+            else if(selected2 == "Vegetable Oils"){ info.push(capita[i].VegetableOils); }
+            else if(selected2 == "Cereals"){ info.push(capita[i].Cereals); }
+            else if(selected2 == "Pulses"){ info.push(capita[i].Pulses); }
+            else if(selected2 == "Vegetables"){ info.push(capita[i].Vegetables); }
+        }
+    }
+    
+    gen_vis(info);
+    
+}
+
+function updateMapAbs(){
+    dataset_choosen = "abs";
+    brand=document.getElementById('select1');
+    selected=brand.options[brand.selectedIndex].value;
+    console.log(selected);
+    brand2=document.getElementById('select2');
+    selected2=brand2.options[brand2.selectedIndex].text;
+    console.log(selected2);
+    info=[];
+    
+    for (i=0; i<68; i ++){
+        if(selected == "beverage"){
+            
+            if(selected2 == "Subcategory"){ info.push(abs[i].All); }
+            else if(selected2 == "Milk"){ info.push(abs[i].Milk); }
+            else if(selected2 == "Coffee"){ info.push(abs[i].Coffee); }
+            else if(selected2 == "Beer"){ info.push(abs[i].Beer); }
+            else if(selected2 == "Wine"){ info.push(abs[i].Wine); }
+            else if(selected2 == "Spirits"){ info.push(abs[i].Spirits); }
+            else if(selected2 == "Other"){ info.push(abs[i].Other); }
+            
+        }
+        else if(selected == "animal"){
+            
+            if(selected2 == "Subcategory"){ info.push(abs[i].AnimalProducts); }
+            else if(selected2 == "Bovine Meat"){ info.push(abs[i].BovineMeat); }
+            else if(selected2 == "Pigmeat"){ info.push(abs[i].Pigmeat); }
+            else if(selected2 == "Poultry Meat"){ info.push(abs[i].PoultryMeat); }
+            else if(selected2 == "Mutton & Goat Meat"){ info.push(abs[i].MuttonGoatMeat); }
+            else if(selected2 == "Offals"){ info.push(abs[i].Offals); }
+            else if(selected2 == "Fish & Seafood"){ info.push(abs[i].FishSeafood); }
+            else if(selected2 == "Eggs"){ info.push(abs[i].Eggs); }
+            else if(selected2 == "Cheese"){ info.push(abs[i].Cheese); }
+            else if(selected2 == "Butter"){ info.push(abs[i].Butter); }
+            else if(selected2 == "Honey"){ info.push(abs[i].Honey); }
+        }
+        else if(selected == "vegetable"){
+            
+            if(selected2 == "Subcategory"){ info.push(abs[i].VegetalProducts); }
+            else if(selected2 == "Fruits"){ info.push(abs[i].Fruits); }
+            else if(selected2 == "Vegetable Oils"){ info.push(abs[i].VegetableOils); }
+            else if(selected2 == "Cereals"){ info.push(abs[i].Cereals); }
+            else if(selected2 == "Pulses"){ info.push(abs[i].Pulses); }
+            else if(selected2 == "Vegetables"){ info.push(abs[i].Vegetables); }
+        }
+    }
+    
+    gen_vis(info);
+    
+
 }

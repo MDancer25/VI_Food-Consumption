@@ -16,8 +16,8 @@
 
 
   <body>
-      <span class="btn btn1" id="absolute" >Absolute</span>
-      <span class="btn btn2" id="capita" >Per Capita</span>
+      <span class="btn btn1" id="absolute" onclick="updateMapAbs();" >Absolute</span>
+      <span class="btn btn2" id="capita" onclick="updateMapCapita();" >Per Capita</span>
     <h1>Food Consumption and Distribution Worldwide!</h1>
             <div id="chartdiv">
                 <script src="MapaConsumo.js"></script>
@@ -32,14 +32,14 @@
                 <button onclick="myFunction()" class="dropbtn">Consumptions
                 </button>
                 <div id="myDropdown" class="dropdown-content">
-                    <select name ="select1" id="select1" class="LABEL" onchange="show_models() ; updateData()">
+                    <select name ="select1" id="select1" class="LABEL" onchange="show_models(); updateMap();">
                         <option value="cat" selected> Category</option>
                         <option value="beverage">Beverages</option>
                         <option value="animal">Animal Products</option>
                         <option value="vegetable">Vegetal Products</option>
                         
                     </select>
-                    <select name="select2" id="select2" class="LABEL">
+                    <select name="select2" id="select2" class="LABEL" onchange="updateMap();">
                         <option value="sub" selected> Subcategory</option>
                     </select>
                 </div>

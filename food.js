@@ -8,7 +8,6 @@ d3.json("dataset_percapita.json", function (data) {
                 abs = data.data;
                 dataset = capita;
                 gen_capita();
-                
                 })
         })
 
@@ -53,7 +52,6 @@ function gen_capita() {
         .attr("width",function(d) {return hscale(d.Beer);})
         .attr("fill","lightblue")
         .attr("x",function(d) {
-             // if beverages==Beer
               return xscale(d.Beer) - w;})
         .attr("y",function(d, i) {return hscale(i); })
         .append("title")
@@ -64,6 +62,7 @@ function gen_capita() {
                                  gen_abs();
                                  });
     d3.selectAll("#capita").on("click", function(){
+                            console.log("ENTROU ON CLICK CAPITA");
                                dataset = capita;
                                gen_capita();
                                });
@@ -71,6 +70,7 @@ function gen_capita() {
 }
 
 function gen_abs(){
+    dataset = abs;
     console.log("ENTROU UPDATE");
     var w = 300;
     var h = 520;
@@ -112,8 +112,8 @@ function gen_abs(){
     .attr("x",function(d) {
           return xscale(d.Beer) - w;})
     .attr("y",function(d, i) {return hscale(i); })
-    //.append("title")
-    //.text(function(d) {return d.Country; });
+    .append("title")
+    .text(function(d) {return d.Country; });
 }
 
 
@@ -149,7 +149,7 @@ function myFunction2() {
 /* ------------------------------ List in dropdown --------------------------------*/
 
 function show_models(){
-    Beverages_subcat=new Array('Milk','Coffee','Beer','Wine','Spirts', 'Other');
+    Beverages_subcat=new Array('Milk','Coffee','Beer','Wine','Spirits', 'Other');
     Animal_subcat=new Array('Bovine Meat', 'Pigmeat', 'Poultry Meat', 'Mutton & Goat Meat', 'Offals','Fish & Seafood', 'Eggs', 'Cheese', 'Butter', 'Honey');
     Vegetable_subcat=new Array('Fruits', 'Vegetable Oils', 'Cereals', 'Pulses', 'Vegetables');
     
@@ -157,21 +157,16 @@ function show_models(){
     model=document.getElementById('select2');
     model.options.length = 1;
     selected=brand.options[brand.selectedIndex].value;
-    selected2=model.options[brand.selectedIndex].text;
     if(selected=="beverage") {
         arr=Beverages_subcat;
-        cat="All";
     }
     else if(selected=="animal") {
         arr=Animal_subcat;
-        cat="AnimalProducts";
     }
     
     else if(selected == "vegetable"){
         arr=Vegetable_subcat;
-        cat="VegetalProducts";
     }
-    else if(selected2 == "Milk"){ subcat= selected2;}
     
     
     for(i=0;i<arr.length;i++) {
