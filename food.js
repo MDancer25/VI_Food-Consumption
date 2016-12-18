@@ -7,74 +7,15 @@ d3.json("dataset_percapita.json", function (data) {
         d3.json("dataset_absolute.json", function (data) {
                 abs = data.data;
                 dataset = capita;
-                gen_capita();
+                gen_vis2();
                 })
         })
 
-    
 
-function gen_capita() {
-    console.log(capita[0].Country);
-    console.log(abs[0].Country);
-    var w = 300;
-    var h = 520;
-    var svg = d3.select("#barchart")
-        .append("svg")
-        .attr("width",w)
-        .attr("height",h);
-    var hscale = d3.scaleLinear()
-        .domain([0,dataset.length/2])
-        .range([0,h]);
-    var xscale = d3.scaleLinear()
-        .domain([0,14])
-        .range([300,w]);
-    var axisscale = d3.scaleLinear()
-        .domain([0,14])
-        .range([0,w]);
-    var axiscountry = d3.scaleLinear()
-        .domain([dataset[0].Country, dataset[(dataset.length-37)].Country])
-        .range([0,h]);
-    var yaxis = d3.axisTop()
-        .scale(axisscale);
-    var xaxis = d3.axisLeft()
-        .scale(axiscountry);
-    gY = svg.append("g")
-                      .attr("transform", "translate(25,25)")
-                      .call(yaxis);
-    gX = svg.append("g")
-        .attr("transform", "translate(25,25)")
-                      .call(xaxis);
-    svg.selectAll("rect")
-        .data(dataset)
-        .enter().append("rect")
-        .attr("transform", "translate(26,26)")
-        .attr("height",15)
-        .attr("width",function(d) {return hscale(d.Beer);})
-        .attr("fill","lightblue")
-        .attr("x",function(d) {
-              return xscale(d.Beer) - w;})
-        .attr("y",function(d, i) {return hscale(i); })
-        .append("title")
-        .text(function(d) {return d.Country; });
-    d3.selectAll("#absolute").on("click",function(){
-                                 console.log("ENTROU ON CLICK ABS");
-                                 dataset = abs;
-                                 gen_abs();
-                                 });
-    d3.selectAll("#capita").on("click", function(){
-                            console.log("ENTROU ON CLICK CAPITA");
-                               dataset = capita;
-                               gen_capita();
-                               });
-
-}
-
-function gen_abs(){
-    dataset = abs;
-    console.log("ENTROU UPDATE");
-    var w = 300;
-    var h = 520;
-    var svg = d3.select("#barchart")
+function gen_vis2(){
+   var w = 300;
+   var h = 520;
+   var svg = d3.select("#barchart")
     .append("svg")
     .attr("width",w)
     .attr("height",h);
@@ -100,9 +41,45 @@ function gen_abs(){
     gX = svg.append("g")
     .attr("transform", "translate(25,25)")
     .call(xaxis);
+    
+    gen_capita(svg, w, h, hscale, xscale);
+    
+}
+
+
+function gen_capita(svg, w, h, hscale, xscale) {
+    console.log(capita[0].Country);
+    console.log(abs[0].Country);
+   
+    
+    svg.selectAll("rect")
+        .data(dataset)
+        .enter().append("rect")
+        .attr("transform", "translate(26,26)")
+        .attr("height",15)
+        .attr("width",function(d) {return hscale(d.Beer);})
+        .attr("fill","lightblue")
+        .attr("x",function(d) {
+              return xscale(d.Beer) - w;})
+        .attr("y",function(d, i) {return hscale(i); })
+        .append("title")
+        .text(function(d) {return d.Country; });
+    d3.selectAll("#absolute").on("click",function(){
+                                 console.log("ENTROU ON CLICK ABS");
+                                 dataset = abs;
+                                 gen_abs(svg,w,h, hscale, xscale);
+                                 });
+    d3.selectAll("#capita").on("click", function(){
+                            console.log("ENTROU ON CLICK CAPITA");
+                               dataset = capita;
+                               gen_capita(svg, w, h, hscale, xscale);
+                               });
+
+}
+
+function gen_abs(svg, w, h, hscale, xscale){
     svg.selectAll("rect")
     .data(dataset)
-    .enter().append("rect")
     .transition()
     .duration(1000)
     .attr("transform", "translate(26,26)")
@@ -112,8 +89,8 @@ function gen_abs(){
     .attr("x",function(d) {
           return xscale(d.Beer) - w;})
     .attr("y",function(d, i) {return hscale(i); })
-    .append("title")
-    .text(function(d) {return d.Country; });
+    //.append("title")
+    //.text(function(d) {return d.Country; });
 }
 
 
