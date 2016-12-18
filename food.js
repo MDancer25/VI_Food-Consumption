@@ -6,13 +6,13 @@ d3.json("dataset_percapita.json", function (data) {
         capita = data.data;
         d3.json("dataset_absolute.json", function (data) {
                 abs = data.data;
-                dataset = capita;
                 gen_vis2();
                 })
         })
 
 
 function gen_vis2(){
+    dataset = capita;
    var w = 300;
    var h = 520;
    var svg = d3.select("#barchart")
@@ -23,10 +23,11 @@ function gen_vis2(){
     .domain([0,dataset.length/2])
     .range([0,h]);
     var xscale = d3.scaleLinear()
-    .domain([0,14])
+    .domain([0, d3.max(dataset, function(d)	{return d.All;})])
     .range([300,w]);
+    
     var axisscale = d3.scaleLinear()
-    .domain([0,14])
+    .domain([0, d3.max(dataset, function(d)	{return d.All;})/20])
     .range([0,w]);
     var axiscountry = d3.scaleLinear()
     .domain([dataset[0].Country, dataset[(dataset.length-37)].Country])
@@ -35,42 +36,61 @@ function gen_vis2(){
     .scale(axisscale);
     var xaxis = d3.axisLeft()
     .scale(axiscountry);
+    
     gY = svg.append("g")
     .attr("transform", "translate(25,25)")
     .call(yaxis);
     gX = svg.append("g")
     .attr("transform", "translate(25,25)")
     .call(xaxis);
-    
-    gen_capita(svg, w, h, hscale, xscale);
-    
-}
-
-
-function gen_capita(svg, w, h, hscale, xscale) {
-    console.log(capita[0].Country);
-    console.log(abs[0].Country);
-   
-    
     svg.selectAll("rect")
-        .data(dataset)
-        .enter().append("rect")
-        .attr("transform", "translate(26,26)")
-        .attr("height",15)
-        .attr("width",function(d) {return hscale(d.Beer);})
-        .attr("fill","lightblue")
-        .attr("x",function(d) {
-              return xscale(d.Beer) - w;})
-        .attr("y",function(d, i) {return hscale(i); })
-        .append("title")
-        .text(function(d) {return d.Country; });
+    .data(dataset)
+    .enter().append("rect")
+    .attr("transform", "translate(26,26)")
+    .attr("height",15)
+    .attr("width",function(d) {return hscale(d.All);})
+    .attr("fill","lightblue")
+    .attr("x",function(d) {
+          return xscale(d.Beer) - w;})
+    .attr("y",function(d, i) {return hscale(i); })
+    .append("title")
+    .text(function(d) {return d.Country + " : " + d.All; });
     d3.selectAll("#absolute").on("click",function(){
-                                 console.log("ENTROU ON CLICK ABS");
+                                 console.log("ENTROU ON CLICK ABS1");
                                  dataset = abs;
                                  gen_abs(svg,w,h, hscale, xscale);
                                  });
     d3.selectAll("#capita").on("click", function(){
-                            console.log("ENTROU ON CLICK CAPITA");
+                               console.log("ENTROU ON CLICK CAPITA1");
+                               dataset = capita;
+                               gen_capita(svg, w, h, hscale, xscale);
+                               });
+    
+    
+}
+
+function gen_capita(svg, w, h, hscale, xscale) {
+    console.log(dataset[0].All);
+    svg.selectAll("rect")
+        .data(dataset)
+        .transition()
+        .duration(1000)
+        .attr("transform", "translate(26,26)")
+        .attr("height",15)
+        .attr("width",function(d) {return hscale(d.All);})
+        .attr("fill","lightblue")
+        .attr("x",function(d) {
+              return xscale(d.All) - w;})
+        .attr("y",function(d, i) {return hscale(i); })
+    .select("title")
+    .text(function(d) {return d.Country + " : " + d.All; });
+    d3.selectAll("#absolute").on("click",function(){
+                                 console.log("ENTROU ON CLICK ABS3");
+                                 dataset = abs;
+                                 gen_abs(svg,w,h, hscale, xscale);
+                                 });
+    d3.selectAll("#capita").on("click", function(){
+                            console.log("ENTROU ON CLICK CAPITA3");
                                dataset = capita;
                                gen_capita(svg, w, h, hscale, xscale);
                                });
@@ -78,22 +98,56 @@ function gen_capita(svg, w, h, hscale, xscale) {
 }
 
 function gen_abs(svg, w, h, hscale, xscale){
+     console.log(dataset[0].All);
+    hscale = d3.scaleLinear()
+        .domain([0,dataset.length/2])
+        .range([0,h]);
+    xscale = d3.scaleLinear()
+        .domain([0, d3.max(dataset, function(d)	{return d.All;})])
+        .range([300,w]);
+    
+    axisscale = d3.scaleLinear()
+        .domain([0, d3.max(dataset, function(d)	{return d.All;})/3.5])
+        .range([0,w]);
+    yaxis = d3.axisTop()
+        .scale(axisscale);
+    svg.select("g").remove();
+    svg.append("g")
+        .attr("transform", "translate(25,25)")
+        .call(yaxis);
+    
     svg.selectAll("rect")
     .data(dataset)
     .transition()
     .duration(1000)
     .attr("transform", "translate(26,26)")
     .attr("height",15)
-    .attr("width",function(d) {return hscale(d.Beer);})
-    .attr("fill","darkblue")
+    .attr("width",function(d) {return hscale(d.All);})
+    .attr("fill","#2885a4")
     .attr("x",function(d) {
-          return xscale(d.Beer) - w;})
+          return xscale(d.All) - w;})
     .attr("y",function(d, i) {return hscale(i); })
-    //.append("title")
-    //.text(function(d) {return d.Country; });
+    .select("title")
+    .text(function(d) {return d.Country + " : " + d.All; });
+    d3.selectAll("#absolute").on("click",function(){
+                                 console.log("ENTROU ON CLICK ABS2");
+                                 dataset = abs;
+                                 gen_abs(svg,w,h, hscale, xscale);
+                                 });
+    d3.selectAll("#capita").on("click", function(){
+                               console.log("ENTROU ON CLICK CAPITA2");
+                               dataset = capita;
+                               gen_capita(svg, w, h, hscale, xscale);
+                               });
 }
 
+function choose_cat(d){
+}
 
+function choose_subcat(d){
+}
+
+//----------------------------------------------------------------------------------
 
 /* When the user clicks on the button,
  toggle between hiding and showing the dropdown content */
