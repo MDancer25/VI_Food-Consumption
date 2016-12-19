@@ -435,10 +435,8 @@ function updateMapCapita(){
     dataset_choosen = "capita";
     brand=document.getElementById('select1');
     selected=brand.options[brand.selectedIndex].value;
-    console.log(selected);
     brand2=document.getElementById('select2');
     selected2=brand2.options[brand2.selectedIndex].text;
-    console.log(selected2);
     info=[];
     
     for (i=0; i<68; i ++){
@@ -486,10 +484,8 @@ function updateMapAbs(){
     dataset_choosen = "abs";
     brand=document.getElementById('select1');
     selected=brand.options[brand.selectedIndex].value;
-    console.log(selected);
     brand2=document.getElementById('select2');
     selected2=brand2.options[brand2.selectedIndex].text;
-    console.log(selected2);
     info=[];
     
     for (i=0; i<68; i ++){
