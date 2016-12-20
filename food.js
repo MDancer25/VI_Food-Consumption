@@ -13,161 +13,238 @@ d3.json("dataset_percapita.json", function (data) {
 
 function gen_vis2(){
     dataset = capita;
-   var w = 300;
-   var h = 520;
+   var w = 450;
+   var h = 1500;
    var svg = d3.select("#barchart")
     .append("svg")
     .attr("width",w)
     .attr("height",h);
+    
+    //sitio vertical
     var hscale = d3.scaleLinear()
-    .domain([0,dataset.length/2])
-    .range([0,h]);
-    var xscale = d3.scaleLinear()
-    .domain([0, d3.max(dataset, function(d)	{return d.All;})])
-    .range([300,w]);
+    .domain([0,dataset.length-1])
+    .range([27,h-35]);
     
-    var axisscale = d3.scaleLinear()
-    .domain([0, d3.max(dataset, function(d)	{return d.All;})/20])
-    .range([0,w]);
-    var axiscountry = d3.scaleLinear()
-    .domain([dataset[0].Country, dataset[(dataset.length-37)].Country])
-    .range([0,h]);
-    var yaxis = d3.axisTop()
-    .scale(axisscale);
+    console.log(dataset[dataset.length-1].Country);
+    
+    //sitio horizontal
+    var wscale = d3.scaleLinear()
+    .domain([0, d3.max(capita, function(d)	{return d.All;})])
+    .range([120,w-5]);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([0,h-40])
+    .align([0.5]);
+    
+    
     var xaxis = d3.axisLeft()
-    .scale(axiscountry);
+    .scale(x);
     
-    gY = svg.append("g")
-    .attr("transform", "translate(25,25)")
-    .call(yaxis);
+    var yaxis = d3.axisTop()
+    .scale(wscale);
+    
+    //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(25,25)")
+    .attr("transform", "translate(120,25)")
     .call(xaxis);
+    
+    //eixo topo
+    gY = svg.append("g")
+    .attr("transform", "translate(0,25)")
+    .call(yaxis);
+    
     svg.selectAll("rect")
     .data(dataset)
     .enter().append("rect")
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.All);})
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.All))-120, 0);})
     .attr("fill","lightblue")
     .attr("x",function(d) {
-          return xscale(d.Beer) - w;})
+          return wscale(0.03);})
     .attr("y",function(d, i) {return hscale(i); })
     .append("title")
     .text(function(d) {return d.Country + " : " + d.All; });
     d3.selectAll("#absolute").on("click",function(){
                                  console.log("ENTROU ON CLICK ABS1");
                                  dataset = abs;
-                                 gen_abs(svg,w,h, hscale, xscale);
+                                 gen_abs(svg,w,h, hscale, wscale);
                                  });
     d3.selectAll("#capita").on("click", function(){
                                console.log("ENTROU ON CLICK CAPITA1");
                                dataset = capita;
-                               gen_capita(svg, w, h, hscale, xscale);
+                               gen_capita(svg, w, h, hscale, wscale);
                                });
     d3.selectAll("#select1").on("change", function(){
                                 console.log("ENTROU ON CHANGE");
-                                if( cat == "beverage"){ update_beverage(svg, w, h, hscale, xscale);}
-                                else if( cat == "animal"){update_animal(svg, w, h, hscale, xscale);}
+                                if( cat == "beverage"){ update_beverage(svg, w, h, hscale, wscale);}
+                                else if( cat == "animal"){update_animal(svg, w, h, hscale, wscale);}
                                 
-                                else if( cat == "vegetable"){update_vegetal(svg, w, h, hscale, xscale);}
+                                else if( cat == "vegetable"){update_vegetal(svg, w, h, hscale, wscale);}
                                 });
     
 }
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Barras Capita >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-function gen_capita(svg, w, h, hscale, xscale) {
+function gen_capita(svg, w, h, hscale, wscale) {
     console.log(dataset[0].All);
+    //sitio vertical
+    hscale = d3.scaleLinear()
+    .domain([0,dataset.length-1])
+    .range([27,h-35]);
+    
+    //sitio horizontal
+    wscale = d3.scaleLinear()
+    .domain([0, d3.max(capita, function(d)	{return d.All;})])
+    .range([120,w-5]);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([0,h-40])
+    .align([0.5]);
+    
+    
+    var xaxis = d3.axisLeft()
+    .scale(x);
+    
+    
+    yaxis = d3.axisTop()
+    .scale(wscale);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,25)")
+    .call(xaxis);
+    
+    //eixo topo
+    gY = svg.append("g")
+    .attr("transform", "translate(0,25)")
+    .call(yaxis);
+    
     svg.selectAll("rect")
         .data(dataset)
         .transition()
         .duration(1000)
-        .attr("transform", "translate(26,26)")
-        .attr("height",15)
-        .attr("width",function(d) {return hscale(d.All);})
-        .attr("fill","lightblue")
-        .attr("x",function(d) {
-              return xscale(d.All) - w;})
-        .attr("y",function(d, i) {return hscale(i); })
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.All))-120, 0);})
+    .attr("fill","lightblue")
+    .attr("x",function(d) {
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i); })
     .select("title")
     .text(function(d) {return d.Country + " : " + d.All; });
+    
     d3.selectAll("#absolute").on("click",function(){
                                  console.log("ENTROU ON CLICK ABS3");
                                  dataset = abs;
-                                 gen_abs(svg,w,h, hscale, xscale);
+                                 gen_abs(svg,w,h, hscale, wscale);
                                  });
     d3.selectAll("#capita").on("click", function(){
                             console.log("ENTROU ON CLICK CAPITA3");
                                dataset = capita;
-                               gen_capita(svg, w, h, hscale, xscale);
+                               gen_capita(svg, w, h, hscale, wscale);
                                });
     d3.selectAll("#select1").on("change", function(){
                                 console.log("ENTROU ON CHANGE");
-                                if( cat == "beverage"){ update_beverage(svg, w, h, hscale, xscale);}
-                                else if( cat == "animal"){update_animal(svg, w, h, hscale, xscale);}
+                                if( cat == "beverage"){ update_beverage(svg, w, h, hscale, wscale);}
+                                else if( cat == "animal"){update_animal(svg, w, h, hscale, wscale);}
                                 
-                                else if( cat == "vegetable"){update_vegetal(svg, w, h, hscale, xscale);}
+                                else if( cat == "vegetable"){update_vegetal(svg, w, h, hscale, wscale);}
                                 });
 
 
 }
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Barras Abs >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-function gen_abs(svg, w, h, hscale, xscale){
+function gen_abs(svg, w, h, hscale, wscale){
      console.log(dataset[0].All);
-    xscale = d3.scaleLinear()
-        .domain([0, d3.max(dataset, function(d)	{return d.All;})])
-        .range([300,w]);
     
-    axisscale = d3.scaleLinear()
-        .domain([0, d3.max(dataset, function(d)	{return d.All;})/3.5])
-        .range([0,w]);
+    //sitio vertical
+    hscale = d3.scaleLinear()
+    .domain([0,dataset.length-1])
+    .range([27,h-35]);
+ 
+    //sitio horizontal
+    wscale = d3.scaleLinear()
+    .domain([0, d3.max(abs, function(d)	{return d.All;})])
+    .range([120,w-5]);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([0,h-40])
+    .align([0.5]);
+    
+    
+    var xaxis = d3.axisLeft()
+    .scale(x);
+    
+    
     yaxis = d3.axisTop()
-        .scale(axisscale);
-    svg.select("g").remove();
+    .scale(wscale);
+    
+    
+    svg.selectAll("g").remove();
+    
+    //eixo cima
     svg.append("g")
-        .attr("transform", "translate(25,25)")
+        .attr("transform", "translate(0,25)")
         .call(yaxis);
+    
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,25)")
+    .call(xaxis);
+    
     
     svg.selectAll("rect")
     .data(dataset)
     .transition()
     .duration(1000)
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.All);})
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.All))-120, 0);})
     .attr("fill","#2885a4")
     .attr("x",function(d) {
-          return xscale(d.All) - w;})
+         return wscale(0.03);})
     .attr("y",function(d, i) {return hscale(i); })
     .select("title")
     .text(function(d) {return d.Country + " : " + d.All; });
     d3.selectAll("#absolute").on("click",function(){
                                  console.log("ENTROU ON CLICK ABS2");
                                  dataset = abs;
-                                 gen_abs(svg,w,h, hscale, xscale);
+                                 gen_abs(svg,w,h, hscale, wscale);
                                  });
     d3.selectAll("#capita").on("click", function(){
                                console.log("ENTROU ON CLICK CAPITA2");
                                dataset = capita;
-                               gen_capita(svg, w, h, hscale, xscale);
+                               gen_capita(svg, w, h, hscale, wscale);
                                });
     d3.selectAll("#select1").on("change", function(){
                                 console.log("ENTROU ON CHANGE");
-                                if(cat == "beverage"){update_beverage(svg, w, h, hscale, xscale);}
-                                else if( cat == "animal"){ update_animal(svg, w, h, hscale, xscale);}
+                                if(cat == "beverage"){update_beverage(svg, w, h, hscale, wscale);}
+                                else if( cat == "animal"){ update_animal(svg, w, h, hscale, wscale);}
                                 
-                                else if( cat == "vegetable"){update_vegetal(svg, w, h, hscale, xscale);}
+                                else if( cat == "vegetable"){update_vegetal(svg, w, h, hscale, wscale);}
                                 
                                 
                                 
                                 });
     d3.selectAll("#select2").on("change", function(){
                                console.log("ENTROU ON CHANGE2");
-                               if(subcat == "Milk"){      update_milk(svg, w, h, hscale, xscale); }
-                               else if(subcat == "Coffee"){    update_coffee(svg, w, h, hscale, xscale); }
-                               else if(subcat == "Beer"){      update_beer(svg, w, h, hscale, xscale); }
-                               else if(subcat == "Wine"){      update_wine(svg, w, h, hscale, xscale); }
-                               else if(subcat == "Spirits"){   update_spirits(svg, w, h, hscale, xscale); }
-                               else if(subcat == "Other"){     update_other(svg, w, h, hscale, xscale); }
+                               if(subcat == "Milk"){      update_milk(svg, w, h, hscale, wscale); }
+                               else if(subcat == "Coffee"){    update_coffee(svg, w, h, hscale, wscale); }
+                               else if(subcat == "Beer"){      update_beer(svg, w, h, hscale, wscale); }
+                               else if(subcat == "Wine"){      update_wine(svg, w, h, hscale, wscale); }
+                               else if(subcat == "Spirits"){   update_spirits(svg, w, h, hscale, wscale); }
+                               else if(subcat == "Other"){     update_other(svg, w, h, hscale, wscale); }
                                /*else if(subcat == "Bovine Meat"){ info.push(abs[i].BovineMeat); }
                                 else if(subcat == "Pigmeat"){ info.push(abs[i].Pigmeat); }
                                 else if(subcat == "Poultry Meat"){ info.push(abs[i].PoultryMeat); }
@@ -187,25 +264,60 @@ function gen_abs(svg, w, h, hscale, xscale){
 
 }
 
-function update_beverage(svg, w, h, hscale, xscale){
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Barras Beverage >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
+function update_beverage(svg, w, h, hscale, wscale){
+    //sitio horizontal
+    wscale = d3.scaleLinear()
+    .domain([0, d3.max(dataset, function(d)	{return d.All;})])
+    .range([120,w-5]);
+    
+    yaxis = d3.axisTop()
+    .scale(wscale);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([0,h-40])
+    .align([0.5]);
+    
+    
+    var xaxis = d3.axisLeft()
+    .scale(x);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo cima
+    svg.append("g")
+    .attr("transform", "translate(0,25)")
+    .call(yaxis);
+    
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,25)")
+    .call(xaxis);
+    
     svg.selectAll("rect")
+    .data(dataset)
     .transition()
     .duration(1000)
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.All);})
-    .attr("x",function(d) {return xscale(d.All) - w;})
-    .attr("y",function(d, i) {return hscale(i); })
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.All))-120, 0);})
+    .attr("x",function(d) {
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i) + 2; })
     .select("title")
     .text(function(d) {return d.Country + " : " + d.All; });
     d3.selectAll("#select2").on("change", function(){
                                 console.log("ENTROU ON CHANGE2");
-                                if(subcat == "Milk"){      update_milk(svg, w, h, hscale, xscale); }
-                                else if(subcat == "Coffee"){    update_coffee(svg, w, h, hscale, xscale); }
-                                else if(subcat == "Beer"){      update_beer(svg, w, h, hscale, xscale); }
-                                else if(subcat == "Wine"){      update_wine(svg, w, h, hscale, xscale); }
-                                else if(subcat == "Spirits"){   update_spirits(svg, w, h, hscale, xscale); }
-                                else if(subcat == "Other"){     update_other(svg, w, h, hscale, xscale); }
+                                if(subcat == "Milk"){      update_milk(svg, w, h, hscale, wscale); }
+                                else if(subcat == "Coffee"){    update_coffee(svg, w, h, hscale, wscale); }
+                                else if(subcat == "Beer"){      update_beer(svg, w, h, hscale, wscale); }
+                                else if(subcat == "Wine"){      update_wine(svg, w, h, hscale, wscale); }
+                                else if(subcat == "Spirits"){   update_spirits(svg, w, h, hscale, wscale); }
+                                else if(subcat == "Other"){     update_other(svg, w, h, hscale, wscale); }
                                 /*else if(subcat == "Bovine Meat"){ info.push(abs[i].BovineMeat); }
                                  else if(subcat == "Pigmeat"){ info.push(abs[i].Pigmeat); }
                                  else if(subcat == "Poultry Meat"){ info.push(abs[i].PoultryMeat); }
@@ -227,253 +339,389 @@ function update_beverage(svg, w, h, hscale, xscale){
 
 }
 
-function update_milk(svg, w, h, hscale, xscale){
-    xscale = d3.scaleLinear()
+/*---------------------------------------- Barras Milk ---------------------------------------*/
+
+function update_milk(svg, w, h, hscale, wscale){
+    //sitio horizontal
+    wscale = d3.scaleLinear()
     .domain([0, d3.max(dataset, function(d)	{return d.Milk;})])
-    .range([300,w]);
+    .range([120,w-5]);
     
-    console.log(d3.max(dataset, function(d)	{return d.Milk;}));
-    
-    axisscale = d3.scaleLinear()
-    .domain([0, d3.max(dataset, function(d)	{return d.Milk;})/3.5])
-    .range([0,w]);
     yaxis = d3.axisTop()
-    .scale(axisscale);
-    svg.select("g").remove();
+    .scale(wscale);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([0,h-40])
+    .align([0.5]);
+    
+    var xaxis = d3.axisLeft()
+    .scale(x);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo cima
     svg.append("g")
-    .attr("transform", "translate(25,25)")
+    .attr("transform", "translate(0,25)")
     .call(yaxis);
     
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,25)")
+    .call(xaxis);
     
     svg.selectAll("rect")
+    .data(dataset)
     .transition()
     .duration(1000)
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.Milk);})
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.Milk))-120, 0);})
     .attr("x",function(d) {
-          return xscale(d.Milk) - w;})
-    .attr("y",function(d, i) {return hscale(i); })
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i) + 2; })
     .select("title")
     .text(function(d) {return d.Country + " : " + d.Milk; });
 }
 
-function update_coffee(svg, w, h, hscale, xscale){
-    xscale = d3.scaleLinear()
+/*-------------------------------------- Barras Coffee ---------------------------------*/
+function update_coffee(svg, w, h, hscale, wscale){
+    //sitio horizontal
+    wscale = d3.scaleLinear()
     .domain([0, d3.max(dataset, function(d)	{return d.Coffee;})])
-    .range([300,w]);
+    .range([120,w-5]);
     
-    console.log(d3.max(dataset, function(d)	{return d.Coffee;}));
     
-    axisscale = d3.scaleLinear()
-    .domain([0, d3.max(dataset, function(d)	{return d.Coffee;})/3.5])
-    .range([0,w]);
     yaxis = d3.axisTop()
-    .scale(axisscale);
-    svg.select("g").remove();
+    .scale(wscale);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([0,h-40])
+    .align([0.5]);
+    
+    var xaxis = d3.axisLeft()
+    .scale(x);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo cima
     svg.append("g")
-    .attr("transform", "translate(25,25)")
+    .attr("transform", "translate(0,25)")
     .call(yaxis);
     
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,25)")
+    .call(xaxis);
     
     svg.selectAll("rect")
+    .data(dataset)
     .transition()
     .duration(1000)
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.Coffee);})
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.Coffee))-120, 0);})
     .attr("x",function(d) {
-          return xscale(d.Coffee) - w;})
-    .attr("y",function(d, i) {return hscale(i); })
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i) + 2; })
     .select("title")
     .text(function(d) {return d.Country + " : " + d.Coffee; });
 }
 
-function update_beer(svg, w, h, hscale, xscale){
-    xscale = d3.scaleLinear()
+/*------------------------------------- Barras Beer ----------------------------------*/
+function update_beer(svg, w, h, hscale, wscale){
+    //sitio horizontal
+    wscale = d3.scaleLinear()
     .domain([0, d3.max(dataset, function(d)	{return d.Beer;})])
-    .range([300,w]);
+    .range([120,w-5]);
+    
     
     console.log(d3.max(dataset, function(d)	{return d.Beer;}));
     
-    axisscale = d3.scaleLinear()
-    .domain([0, d3.max(dataset, function(d)	{return d.Beer;})/3.5])
-    .range([0,w]);
     yaxis = d3.axisTop()
-    .scale(axisscale);
-    svg.select("g").remove();
+    .scale(wscale)
+    .ticks(12/2);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([0,h-40])
+    .align([0.5]);
+    
+    var xaxis = d3.axisLeft()
+    .scale(x);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo cima
     svg.append("g")
-    .attr("transform", "translate(25,25)")
+    .attr("transform", "translate(0,25)")
     .call(yaxis);
-
-
+    
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,25)")
+    .call(xaxis);
+    
     svg.selectAll("rect")
+    .data(dataset)
     .transition()
     .duration(1000)
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.Beer);})
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.Beer))-120, 0);})
     .attr("x",function(d) {
-          return xscale(d.Beer) - w;})
-    .attr("y",function(d, i) {return hscale(i); })
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i) + 2; })
     .select("title")
     .text(function(d) {return d.Country + " : " + d.Beer; });
 }
 
-function update_wine(svg, w, h, hscale, xscale){
-    xscale = d3.scaleLinear()
+/*-------------------------------------- Barras Wine ---------------------------------*/
+function update_wine(svg, w, h, hscale, wscale){
+    //sitio horizontal
+    wscale = d3.scaleLinear()
     .domain([0, d3.max(dataset, function(d)	{return d.Wine;})])
-    .range([300,w]);
+    .range([120,w-5]);
+    
     
     console.log(d3.max(dataset, function(d)	{return d.Wine;}));
     
-    axisscale = d3.scaleLinear()
-    .domain([0, d3.max(dataset, function(d)	{return d.Wine;})/3.5])
-    .range([0,w]);
     yaxis = d3.axisTop()
-    .scale(axisscale);
-    svg.select("g").remove();
+    .scale(wscale)
+    .ticks(12/2);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([0,h-40])
+    .align([0.5]);
+    
+    var xaxis = d3.axisLeft()
+    .scale(x);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo cima
     svg.append("g")
-    .attr("transform", "translate(25,25)")
+    .attr("transform", "translate(0,25)")
     .call(yaxis);
     
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,25)")
+    .call(xaxis);
     
     svg.selectAll("rect")
+    .data(dataset)
     .transition()
     .duration(1000)
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.Wine);})
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.Wine))-120, 0);})
     .attr("x",function(d) {
-          return xscale(d.Wine) - w;})
-    .attr("y",function(d, i) {return hscale(i); })
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i) + 2; })
     .select("title")
     .text(function(d) {return d.Country + " : " + d.Wine; });
 }
 
-function update_spirits(svg, w, h, hscale, xscale){
-    xscale = d3.scaleLinear()
+/*------------------------------------- Barras Spirits ---------------------------------*/
+function update_spirits(svg, w, h, hscale, wscale){
+    //sitio horizontal
+    wscale = d3.scaleLinear()
     .domain([0, d3.max(dataset, function(d)	{return d.Spirits;})])
-    .range([300,w]);
+    .range([120,w-5]);
+    
     
     console.log(d3.max(dataset, function(d)	{return d.Spirits;}));
     
-    axisscale = d3.scaleLinear()
-    .domain([0, d3.max(dataset, function(d)	{return d.Spirits;})/3.5])
-    .range([0,w]);
     yaxis = d3.axisTop()
-    .scale(axisscale);
-    svg.select("g").remove();
+    .scale(wscale)
+    .ticks(12/2);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([0,h-40])
+    .align([0.5]);
+    
+    var xaxis = d3.axisLeft()
+    .scale(x);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo cima
     svg.append("g")
-    .attr("transform", "translate(25,25)")
+    .attr("transform", "translate(0,25)")
     .call(yaxis);
     
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,25)")
+    .call(xaxis);
     
     svg.selectAll("rect")
+    .data(dataset)
     .transition()
     .duration(1000)
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.Spirits);})
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.Spirits))-120, 0);})
     .attr("x",function(d) {
-          return xscale(d.Spirits) - w;})
-    .attr("y",function(d, i) {return hscale(i); })
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i) + 2; })
     .select("title")
     .text(function(d) {return d.Country + " : " + d.Spirits; });
 }
 
-function update_other(svg, w, h, hscale, xscale){
-    xscale = d3.scaleLinear()
+/*----------------------------------- Barras Other -----------------------------------*/
+function update_other(svg, w, h, hscale, wscale){
+    //sitio horizontal
+    wscale = d3.scaleLinear()
     .domain([0, d3.max(dataset, function(d)	{return d.Other;})])
-    .range([300,w]);
+    .range([120,w-5]);
+    
     
     console.log(d3.max(dataset, function(d)	{return d.Other;}));
     
-    axisscale = d3.scaleLinear()
-    .domain([0, d3.max(dataset, function(d)	{return d.Other;})/3.5])
-    .range([0,w]);
     yaxis = d3.axisTop()
-    .scale(axisscale);
-    svg.select("g").remove();
+    .scale(wscale);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([0,h-40])
+    .align([0.5]);
+    
+    var xaxis = d3.axisLeft()
+    .scale(x);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo cima
     svg.append("g")
-    .attr("transform", "translate(25,25)")
+    .attr("transform", "translate(0,25)")
     .call(yaxis);
     
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,25)")
+    .call(xaxis);
     
     svg.selectAll("rect")
+    .data(dataset)
     .transition()
     .duration(1000)
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.Other);})
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.Other))-120, 0);})
     .attr("x",function(d) {
-          return xscale(d.Other) - w;})
-    .attr("y",function(d, i) {return hscale(i); })
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i) + 2; })
     .select("title")
     .text(function(d) {return d.Country + " : " + d.Other; });
 }
 
-function update_animal(svg, w, h, hscale, xscale){
-    xscale = d3.scaleLinear()
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Barras Animal >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
+function update_animal(svg, w, h, hscale, wscale){
+    //sitio horizontal
+    wscale = d3.scaleLinear()
     .domain([0, d3.max(dataset, function(d)	{return d.AnimalProducts;})])
-    .range([300,w]);
+    .range([120,w-5]);
+    
     
     console.log(d3.max(dataset, function(d)	{return d.AnimalProducts;}));
     
-    axisscale = d3.scaleLinear()
-    .domain([0, d3.max(dataset, function(d)	{return d.AnimalProducts;})/3.5])
-    .range([0,w]);
     yaxis = d3.axisTop()
-    .scale(axisscale);
-    svg.select("g").remove();
+    .scale(wscale)
+    .ticks(12/2);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([0,h-40])
+    .align([0.5]);
+    
+    var xaxis = d3.axisLeft()
+    .scale(x);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo cima
     svg.append("g")
-    .attr("transform", "translate(25,25)")
+    .attr("transform", "translate(0,25)")
     .call(yaxis);
     
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,25)")
+    .call(xaxis);
     
     svg.selectAll("rect")
+    .data(dataset)
     .transition()
     .duration(1000)
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.AnimalProducts);})
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.AnimalProducts))-120, 0);})
     .attr("x",function(d) {
-          return xscale(d.AnimalProducts) - w;})
-    .attr("y",function(d, i) {return hscale(i); })
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i) + 2; })
     .select("title")
     .text(function(d) {return d.Country + " : " + d.AnimalProducts; });
 }
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Barras Vegetal >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-function update_vegetal(svg, w, h, hscale, xscale){
-    xscale = d3.scaleLinear()
+function update_vegetal(svg, w, h, hscale, wscale){
+    //sitio horizontal
+    wscale = d3.scaleLinear()
     .domain([0, d3.max(dataset, function(d)	{return d.VegetalProducts;})])
-    .range([300,w]);
+    .range([120,w-5]);
     
-    axisscale = d3.scaleLinear()
-    .domain([0, d3.max(dataset, function(d)	{return d.VegetalProducts;})/3.5])
-    .range([0,w]);
+    
+    console.log(d3.max(dataset, function(d)	{return d.VegetalProducts;}));
+    
     yaxis = d3.axisTop()
-    .scale(axisscale);
-    svg.select("g").remove();
+    .scale(wscale)
+    .ticks(12/2);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([0,h-40])
+    .align([0.5]);
+    
+    var xaxis = d3.axisLeft()
+    .scale(x);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo cima
     svg.append("g")
-    .attr("transform", "translate(25,25)")
+    .attr("transform", "translate(0,25)")
     .call(yaxis);
-
-
+    
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,25)")
+    .call(xaxis);
     
     svg.selectAll("rect")
+    .data(dataset)
     .transition()
     .duration(1000)
-    .attr("transform", "translate(26,26)")
-    .attr("height",15)
-    .attr("width",function(d) {return hscale(d.VegetalProducts);})
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.VegetalProducts))-120, 0);})
     .attr("x",function(d) {
-          return xscale(d.VegetalProducts) - w;})
-    .attr("y",function(d, i) {return hscale(i); })
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i) + 2; })
     .select("title")
     .text(function(d) {return d.Country + " : " + d.VegetalProducts; });
 }
 
+//**************************************  Cat/Subcat *****************************************
 
 function choose_cat(){
     sel1=document.getElementById('select1');
@@ -488,7 +736,7 @@ function choose_subcat(){
 }
 
 
-//----------------------------------------------------------------------------------
+//**************************************  Dropdown *****************************************
 
 /* When the user clicks on the button,
  toggle between hiding and showing the dropdown content */
@@ -518,7 +766,7 @@ function myFunction2() {
     document.getElementById("myDropdown2").classList.toggle("show");
 }
 
-/* ------------------------------ List in dropdown --------------------------------*/
+/* ************************************** List in dropdown ***************************************/
 
 function show_models(){
     Beverages_subcat=new Array('Milk','Coffee','Beer','Wine','Spirits', 'Other');
@@ -529,6 +777,8 @@ function show_models(){
     model=document.getElementById('select2');
     model.options.length = 1;
     selected=brand.options[brand.selectedIndex].value;
+    
+    console.log(selected);
     if(selected=="beverage") {
         arr=Beverages_subcat;
     }

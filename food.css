@@ -5,8 +5,8 @@ h1 {
 }
 
 body{
-    width: 1100px;
-    height: 600px;
+    width: 1200px;
+    height: 630px;
 }
 
 .axis path, .axis line {
@@ -21,22 +21,22 @@ body{
 }
 
 #chartdiv {
-    top:5px;
+    top:55px;
     bottom:0px;
     left:0px;
     right:0px;
     width: 750px;
     height: 560px;
-    position: relative;
+    position: absolute;
     visibility: visible;
 }
 
 #mapdiv {
     top:55px;
     bottom:0px;
-    left:8px;
+    left:0px;
     right:0px;
-    width: 755px;
+    width: 750px;
     height: 560px;
     position: absolute;
     visibility: hidden;
@@ -44,16 +44,17 @@ body{
 
 
 #barchart{
-    width: 360px;
+    width: 490px;
     height: 560px;
-    position: relative;
+    position: absolute;
     left: 760px;
-    top: -550px;
+    top: 55px;
+    overflow: scroll;
 }
 
 .btn {
     position:absolute;
-    left: 850px;
+    left: 940px;
     color: white;
     padding: 8px 14px;
     text-align: center;

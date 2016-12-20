@@ -11,7 +11,7 @@ d3.json("dataset_percapita.json", function (data) {
         capita = data.data;
         d3.json("dataset_absolute.json", function (data) {
                 abs = data.data;
-                info = [];
+                updateMapCapita();
                 gen_vis(info);
                 })
         })
@@ -332,7 +332,7 @@ function gen_vis(info){
     
     
     // get min and max values
-    var minBulletSize = 0.1;
+    var minBulletSize = 5;
     var maxBulletSize = 30;
     var min = Infinity;
     var max = -Infinity;
