@@ -1,3 +1,4 @@
+var count = 3;
 var map = AmCharts.makeChart("mapdiv",{
                              type: "map",
                              theme: "dark",
@@ -25,27 +26,43 @@ var map = AmCharts.makeChart("mapdiv",{
                              "listeners": [ {
                                            "event": "clickMapObject",
                                            "method": function( event ) {
+                                            var areasSelected = [];
+                                           
+                                           if(count<=0){
+                                           console.log("ENTROU IF1");
                                            // deselect the area by assigning all of the dataProvider as selected object
                                            map.selectedObject = map.dataProvider;
+                                           map.returnInitialColor(event.mapObject);
+                                           areasSelected.pop();
+                                           count ++;
+                                           }
+                                           console.log("if1" + areasSelected);
                                            
-                                           // toggle showAsSelected
+                                           
+                                           if (count>0){
+                                           console.log("ENTROU IF2");
+                                           
                                            event.mapObject.showAsSelected = !event.mapObject.showAsSelected;
+                                            for ( var i in map.dataProvider.areas ) {
+                                            console.log("ENTROU IF3");
+                                            var area = map.dataProvider.areas[ i ];
+                                            if (area.showAsSelected){
+                                            areasSelected.push( area.title );
+                                           }
+                                           }
+
+                                           count--;
+                                           }
+                                           console.log("if2" + areasSelected);
+
+                                           
                                            
                                            
                                            // bring it to an appropriate color
-                                           map.returnInitialColor( event.mapObject );
-                                           
+                                           //map.returnInitialColor( event.mapObject );
                                            
                                            // let's build a list of currently selected states
-                                           var states = [];
-                                           for ( var i in map.dataProvider.areas ) {
-                                           var area = map.dataProvider.areas[ i ];
-                                           if ( area.showAsSelected ) {
-                                           states.push( area.title );
-                                           }
-                                           
-                                           
-                                           }
+                                          
                                            }
                                            } ],
                              "export": {"enabled": false}

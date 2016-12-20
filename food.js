@@ -721,6 +721,45 @@ function update_vegetal(svg, w, h, hscale, wscale){
     .text(function(d) {return d.Country + " : " + d.VegetalProducts; });
 }
 
+//***************************************** Highlight *****************************************
+
+function onMouseover(elemData) {
+    
+    var out = exportHoverCountry();
+    console.log(out);
+    
+    /*d3.select("svg").selectAll("circle")
+    .select( function(d) { return d===elemData?this:null;})
+    .transition()//Set transition
+    .style('stroke', '#222222')
+    .attr("r", function(d) { return (d.size/200) + 2; })
+    
+    d3.select('#key').selectAll('li')
+    .select( function(d) { return d===elemData?this:null;})
+    .transition().duration(200)//Set transition
+    .style('background', '#ededed')*/
+    
+    
+}
+
+function onMouseout(elemData) {
+    
+    /*d3.select("svg").selectAll("circle")
+    .select( function(d) { return d===elemData?this:null;})
+    .transition()
+    .style('stroke', '#bfbfbf')
+    .attr("r", function(d) { return (d.size/200) - 2; })
+    
+    d3.select('#key').selectAll('li')
+    .select( function(d) { return d===elemData?this:null;})
+    .transition().duration(500)//Set transition
+    .style('background', '#ffffff')*/
+    
+    
+}
+
+
+
 //**************************************  Cat/Subcat *****************************************
 
 function choose_cat(){
