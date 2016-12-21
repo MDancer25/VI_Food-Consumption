@@ -1,4 +1,73 @@
 var count = 3;
+var state = [];
+var areas =  [
+              { "id": "AR" },
+              { "id": "AU" },
+              { "id": "AT" },
+              { "id": "BD" },
+              { "id": "BE" },
+              { "id": "BO" },
+              { "id": "BA" },
+              { "id": "BR" },
+              { "id": "BG" },
+              { "id": "CA" },
+              { "id": "CL" },
+              { "id": "CN" },
+              { "id": "CO" },
+              { "id": "CR" },
+              { "id": "CZ" },
+              { "id": "DK" },
+              { "id": "DO" },
+              { "id": "EC" },
+              { "id": "EG" },
+              { "id": "ET" },
+              { "id": "FI" },
+              { "id": "FR" },
+              { "id": "DE" },
+              { "id": "GH" },
+              { "id": "GR" },
+              { "id": "HT" },
+              { "id": "HU" },
+              { "id": "IS" },
+              { "id": "IN" },
+              { "id": "ID" },
+              { "id": "IR" },
+              { "id": "IL" },
+              { "id": "JM" },
+              { "id": "JP" },
+              { "id": "KE" },
+              { "id": "MG" },
+              { "id": "MW" },
+              { "id": "MX" },
+              { "id": "MN" },
+              { "id": "NL" },
+              { "id": "NZ" },
+              { "id": "NG" },
+              { "id": "PK" },
+              { "id": "PY" },
+              { "id": "PE" },
+              { "id": "PH" },
+              { "id": "PL" },
+              { "id": "PT" },
+              { "id": "RO" },
+              { "id": "RU" },
+              { "id": "SA" },
+              { "id": "SN" },
+              { "id": "SL" },
+              { "id": "ZA" },
+              { "id": "ES" },
+              { "id": "LK" },
+              { "id": "SE" },
+              { "id": "CH" },
+              { "id": "TH" },
+              { "id": "TN" },
+              { "id": "TR" },
+              { "id": "UA" },
+              { "id": "AE" },
+              { "id": "GB" },
+              { "id": "US" }
+              ];
+
 var map = AmCharts.makeChart("mapdiv",{
                              type: "map",
                              theme: "dark",
@@ -11,58 +80,51 @@ var map = AmCharts.makeChart("mapdiv",{
                              },
                              dataProvider : {
                              map : "worldHigh",
-                             getAreasFromMap : true,
+                             areas : areas,
                              },
                              areasSettings : {
                              autoZoom : false,
                              color : "#B4B4B7",
                              colorSolid : "#84ADE9",
-                             selectedColor : "#7BDE2A",
-                             outlineColor : "#666666",
-                             rollOverColor : "#9E9E9E",
-                             rollOverOutlineColor : "#000000",
+                             selectedColor : "#ff9933",
+                             outlineColor : "#FFFFFF",
+                             rollOverColor : "#afc7cf",
+                             rollOverOutlineColor : "#FFFFFF",
+                             unlistedAreasColor: "#262626",
+                             unlistedAreasOutlineColor: "#FFFFF",
                              "selectable" : true
                              },
                              "listeners": [ {
                                            "event": "clickMapObject",
                                            "method": function( event ) {
-                                            var areasSelected = [];
+                                           var id;
                                            
-                                           if(count<=0){
-                                           console.log("ENTROU IF1");
-                                           // deselect the area by assigning all of the dataProvider as selected object
-                                           map.selectedObject = map.dataProvider;
-                                           map.returnInitialColor(event.mapObject);
-                                           areasSelected.pop();
-                                           count ++;
+                                           
+                                           id = event.mapObject.title;
+                                           if(event.mapObject.showAsSelected == true){
+                                                    console.log("ENTROU IF selected = true");
+                                                    event.mapObject.showAsSelected = false;
+                                                    map.selectedObject = map.dataProvider;
+                                                    count++;
                                            }
-                                           console.log("if1" + areasSelected);
-                                           
-                                           
+                                           else{
+                                           console.log("ENTROU ELSE");
                                            if (count>0){
-                                           console.log("ENTROU IF2");
-                                           
                                            event.mapObject.showAsSelected = !event.mapObject.showAsSelected;
-                                            for ( var i in map.dataProvider.areas ) {
-                                            console.log("ENTROU IF3");
-                                            var area = map.dataProvider.areas[ i ];
-                                            if (area.showAsSelected){
-                                            areasSelected.push( area.title );
+                                           count--;}
                                            }
-                                           }
-
-                                           count--;
-                                           }
-                                           console.log("if2" + areasSelected);
-
-                                           
-                                           
                                            
                                            // bring it to an appropriate color
-                                           //map.returnInitialColor( event.mapObject );
-                                           
-                                           // let's build a list of currently selected states
-                                          
+                                           map.returnInitialColor( event.mapObject );
+
+                                            state = [];
+                                            for ( var i in map.dataProvider.areas ) {
+                                            var area = map.dataProvider.areas[ i ];
+                                            if (area.showAsSelected){
+                                            state.push( area.title );
+                                           gen_stacked();
+                                           }
+                                           }
                                            }
                                            } ],
                              "export": {"enabled": false}

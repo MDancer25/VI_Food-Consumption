@@ -2113,9 +2113,9 @@
                     if ("serial" == h || "xy" == h || "gantt" == h)
                         c = this.marginLeftReal, e = this.marginTopReal, d = c + this.plotAreaWidth, g = e + this.plotAreaHeight;
                     var h = a + "/javascript-charts/",
-                        k = "JavaScript charts",
-                        l = "JS chart by amCharts";
-                    "ammap" == this.product && (h = a + "/javascript-maps/", k = "Interactive JavaScript maps", l = "JS map by amCharts");
+                        k = "",
+                        l = "";
+                    "ammap" == this.product && (h = a + "/javascript-maps/", k = "Interactive JavaScript maps", l = "");
                     a = document.createElement("a");
                     l = document.createTextNode(l);
                     a.setAttribute("href", h);

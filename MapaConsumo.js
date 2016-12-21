@@ -1,3 +1,6 @@
+var count2 = 6;
+var country;
+
 /*
  Although amMap has methods like getAreaCenterLatitude and getAreaCenterLongitude,
  they are not suitable in quite a lot of cases as the center of some countries
@@ -261,73 +264,73 @@ latlong["ZW"] = {"latitude":-20, "longitude":30};
 function gen_vis(info){
     
     mapData = [
-               {"code":"AR" , "name":"Argentina", "value":info[0], "color":"#86a965", "hover" : "#85cf3f"},
+               {"code":"AR" , "name":"Argentina", "value":info[0], "color":"#86a965", "hover" : "#84e727"},
                {"code":"AU" , "name":"Australia", "value":info[1], "color":"#8aabb0", "hover" : "#64c9d8" },
-               {"code":"AT" , "name":"Austria", "value":info[2], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"BD" , "name":"Bangladesh", "value":info[3], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"BE" , "name":"Belgium", "value":info[4], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"BO" , "name":"Bolivia", "value":info[5], "color":"#86a965", "hover" : "#85cf3f"},
-               {"code":"BA" , "name":"Bosnia and Herzegovina", "value":info[6], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"BR" , "name":"Brazil", "value":info[7], "color":"#86a965", "hover" : "#85cf3f"},
-               {"code":"BG" , "name":"Bulgaria", "value":info[8], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"CA" , "name":"Canada", "value":info[9], "color":"#a7a737", "hover" : "#d5d50b"},
-               {"code":"CL" , "name":"Chile", "value":info[10], "color":"#86a965", "hover" : "#85cf3f"},
-               {"code":"CN" , "name":"China", "value":info[11], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"CO" , "name":"Colombia", "value":info[12], "color":"#86a965", "hover" : "#85cf3f"},
-               {"code":"CR" , "name":"Costa Rica", "value":info[13], "color":"#a7a737", "hover" : "#d5d50b"},
-               {"code":"CZ" , "name":"Czech Rep.", "value":info[14], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"DK" , "name":"Denmark", "value":info[15], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"DO" , "name":"Dominican Rep.", "value":info[16], "color":"#a7a737", "hover" : "#d5d50b"},
-               {"code":"EC" , "name":"Ecuador", "value":info[17], "color":"#86a965", "hover" : "#85cf3f"},
-               {"code":"EG" , "name":"Egypt", "value":info[18], "color":"#de4c4f", "hover" : "#fa2e32"},
-               {"code":"ET" , "name":"Ethiopia", "value":info[19], "color":"#de4c4f", "hover" : "#fa2e32"},
-               {"code":"FI" , "name":"Finland", "value":info[20], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"FR" , "name":"France", "value":info[21], "color":"#d8854f", "hover" : "#d5d50b"},
-               {"code":"DE" , "name":"Germany", "value":info[22], "color":"#d8854f", "hover" : "#d5d50b"},
-               {"code":"GH" , "name":"Ghana", "value":info[23], "color":"#de4c4f", "hover" : "#fa2e32"},
-               {"code":"GR" , "name":"Greece", "value":info[24], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"HT" , "name":"Haiti", "value":info[25], "color":"#a7a737", "hover" : "#d5d50b"},
-               {"code":"HU" , "name":"Hungary", "value":info[26], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"IS" , "name":"Iceland", "value":info[27], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"IN" , "name":"India", "value":info[28], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"ID" , "name":"Indonesia", "value":info[29], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"IR" , "name":"Iran", "value":info[30], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"IL" , "name":"Israel", "value":info[31], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"IT" , "name":"Italy", "value":info[32], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"JM" , "name":"Jamaica", "value":info[33], "color":"#a7a737", "hover" : "#d5d50b"},
-               {"code":"JP" , "name":"Japan", "value":info[34], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"KE" , "name":"Kenya", "value":info[35], "color":"#de4c4f", "hover" : "#fa2e32"},
-               {"code":"MG" , "name":"Madagascar", "value":info[36], "color":"#de4c4f", "hover" : "#fa2e32"},
-               {"code":"MW" , "name":"Malawi", "value":info[37], "color":"#de4c4f", "hover" : "#fa2e32"},
-               {"code":"MX" , "name":"Mexico", "value":info[38], "color":"#a7a737", "hover" : "#d5d50b"},
-               {"code":"MN" , "name":"Mongolia", "value":info[39], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"MA" , "name":"Morocco", "value":info[40], "color":"#de4c4f", "hover" : "#fa2e32"},
-               {"code":"NL" , "name":"Netherlands", "value":info[41], "color":"#d8854f", "hover" : "#f48134"},
+               {"code":"AT" , "name":"Austria", "value":info[2], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"BD" , "name":"Bangladesh", "value":info[3], "color":"#eea638", "hover" : "#ffc929"},
+               {"code":"BE" , "name":"Belgium", "value":info[4], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"BO" , "name":"Bolivia", "value":info[5], "color":"#86a965", "hover" : "#84e727"},
+               {"code":"BA" , "name":"Bosnia and Herzegovina", "value":info[6], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"BR" , "name":"Brazil", "value":info[7], "color":"#86a965", "hover" : "#84e727"},
+               {"code":"BG" , "name":"Bulgaria", "value":info[8], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"CA" , "name":"Canada", "value":info[9], "color":"#a7a737", "hover" : "#e0e000"},
+               {"code":"CL" , "name":"Chile", "value":info[10], "color":"#86a965", "hover" : "#84e727"},
+               {"code":"CN" , "name":"China", "value":info[11], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"CO" , "name":"Colombia", "value":info[12], "color":"#86a965", "hover" : "#84e727"},
+               {"code":"CR" , "name":"Costa Rica", "value":info[13], "color":"#a7a737", "hover" : "#e0e000"},
+               {"code":"CZ" , "name":"Czech Rep.", "value":info[14], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"DK" , "name":"Denmark", "value":info[15], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"DO" , "name":"Dominican Rep.", "value":info[16], "color":"#a7a737", "hover" : "#e0e000"},
+               {"code":"EC" , "name":"Ecuador", "value":info[17], "color":"#86a965", "hover" : "#84e727"},
+               {"code":"EG" , "name":"Egypt", "value":info[18], "color":"#de4c4f", "hover" : "#ff1a1d"},
+               {"code":"ET" , "name":"Ethiopia", "value":info[19], "color":"#de4c4f", "hover" : "#ff1a1d"},
+               {"code":"FI" , "name":"Finland", "value":info[20], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"FR" , "name":"France", "value":info[21], "color":"#d8854f", "hover" : "#e0e000"},
+               {"code":"DE" , "name":"Germany", "value":info[22], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"GH" , "name":"Ghana", "value":info[23], "color":"#de4c4f", "hover" : "#ff1a1d"},
+               {"code":"GR" , "name":"Greece", "value":info[24], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"HT" , "name":"Haiti", "value":info[25], "color":"#a7a737", "hover" : "#e0e000"},
+               {"code":"HU" , "name":"Hungary", "value":info[26], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"IS" , "name":"Iceland", "value":info[27], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"IN" , "name":"India", "value":info[28], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"ID" , "name":"Indonesia", "value":info[29], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"IR" , "name":"Iran", "value":info[30], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"IL" , "name":"Israel", "value":info[31], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"IT" , "name":"Italy", "value":info[32], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"JM" , "name":"Jamaica", "value":info[33], "color":"#a7a737", "hover" : "#e0e000"},
+               {"code":"JP" , "name":"Japan", "value":info[34], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"KE" , "name":"Kenya", "value":info[35], "color":"#de4c4f", "hover" : "#ff1a1d"},
+               {"code":"MG" , "name":"Madagascar", "value":info[36], "color":"#de4c4f", "hover" : "#ff1a1d"},
+               {"code":"MW" , "name":"Malawi", "value":info[37], "color":"#de4c4f", "hover" : "#ff1a1d"},
+               {"code":"MX" , "name":"Mexico", "value":info[38], "color":"#a7a737", "hover" : "#e0e000"},
+               {"code":"MN" , "name":"Mongolia", "value":info[39], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"MA" , "name":"Morocco", "value":info[40], "color":"#de4c4f", "hover" : "#ff1a1d"},
+               {"code":"NL" , "name":"Netherlands", "value":info[41], "color":"#d8854f", "hover" : "#ff9429"},
                {"code":"NZ" , "name":"New Zealand", "value":info[42], "color":"#8aabb0", "hover" : "#64c9d8" },
-               {"code":"NG" , "name":"Nigeria", "value":info[43], "color":"#de4c4f", "hover" : "#fa2e32"},
-               {"code":"PK" , "name":"Pakistan", "value":info[44], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"PY" , "name":"Paraguay", "value":info[45], "color":"#86a965", "hover" : "#85cf3f"},
-               {"code":"PE" , "name":"Peru", "value":info[46], "color":"#86a965", "hover" : "#85cf3f"},
-               {"code":"PH" , "name":"Philippines", "value":info[47], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"PL" , "name":"Poland", "value":info[48], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"PT" , "name":"Portugal", "value":info[49], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"RO" , "name":"Romania", "value":info[50], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"RU" , "name":"Russia", "value":info[52], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"SA" , "name":"Saudi Arabia", "value":info[53], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"SN" , "name":"Senegal", "value":info[54], "color":"#de4c4f", "hover" : "#fa2e32"},
-               {"code":"SL" , "name":"Sierra Leone", "value":info[55], "color":"#de4c4f", "hover" : "#fa2e32"},
-               {"code":"ZA" , "name":"South Africa", "value":info[56], "color":"#de4c4f", "hover" : "#fa2e32"},
-               {"code":"ES" , "name":"Spain", "value":info[57], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"LK" , "name":"Sri Lanka", "value":info[58], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"SE" , "name":"Sweden", "value":info[59], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"CH" , "name":"Switzerland", "value":info[60], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"TH" , "name":"Thailand", "value":info[61], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"TN" , "name":"Tunisia", "value":info[62], "color":"#de4c4f", "hover" : "#fa2e32"},
-               {"code":"TR" , "name":"Turkey", "value":info[63], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"UA" , "name":"Ukraine", "value":info[64], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"AE" , "name":"United Arab Emirates", "value":info[65], "color":"#eea638", "hover" : "#ffa929"},
-               {"code":"GB" , "name":"United Kingdom", "value":info[66], "color":"#d8854f", "hover" : "#f48134"},
-               {"code":"US" , "name":"United States", "value":info[67], "color":"#a7a737", "hover" : "#d5d50b"}]
+               {"code":"NG" , "name":"Nigeria", "value":info[43], "color":"#de4c4f", "hover" : "#ff1a1d"},
+               {"code":"PK" , "name":"Pakistan", "value":info[44], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"PY" , "name":"Paraguay", "value":info[45], "color":"#86a965", "hover" : "#84e727"},
+               {"code":"PE" , "name":"Peru", "value":info[46], "color":"#86a965", "hover" : "#84e727"},
+               {"code":"PH" , "name":"Philippines", "value":info[47], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"PL" , "name":"Poland", "value":info[48], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"PT" , "name":"Portugal", "value":info[49], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"RO" , "name":"Romania", "value":info[50], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"RU" , "name":"Russia", "value":info[52], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"SA" , "name":"Saudi Arabia", "value":info[53], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"SN" , "name":"Senegal", "value":info[54], "color":"#de4c4f", "hover" : "#ff1a1d"},
+               {"code":"SL" , "name":"Sierra Leone", "value":info[55], "color":"#de4c4f", "hover" : "#ff1a1d"},
+               {"code":"ZA" , "name":"South Africa", "value":info[56], "color":"#de4c4f", "hover" : "#ff1a1d"},
+               {"code":"ES" , "name":"Spain", "value":info[57], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"LK" , "name":"Sri Lanka", "value":info[58], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"SE" , "name":"Sweden", "value":info[59], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"CH" , "name":"Switzerland", "value":info[60], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"TH" , "name":"Thailand", "value":info[61], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"TN" , "name":"Tunisia", "value":info[62], "color":"#de4c4f", "hover" : "#ff1a1d"},
+               {"code":"TR" , "name":"Turkey", "value":info[63], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"UA" , "name":"Ukraine", "value":info[64], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"AE" , "name":"United Arab Emirates", "value":info[65], "color":"#eea638", "hover" : "#ffda00"},
+               {"code":"GB" , "name":"United Kingdom", "value":info[66], "color":"#d8854f", "hover" : "#ff9429"},
+               {"code":"US" , "name":"United States", "value":info[67], "color":"#a7a737", "hover" : "#e0e000"}]
     
     
     
@@ -366,16 +369,18 @@ function gen_vis(info){
         images.push( {
                     "type": "circle",
                     "theme": "light",
-                    
                     "width": size,
                     "height": size,
                     "color": dataItem.color,
                     "alpha": 0.7,
-                    "rollOverColor" : dataItem.hover,
+                    "bringForwardOnHover" : true,
+                    "selectedColor" : dataItem.hover,
                     "longitude": latlong[ id ].longitude,
                     "latitude": latlong[ id ].latitude,
                     "title": dataItem.name + ":" + value ,
-                    "value": value
+                    "value": value,
+                    "name": dataItem.name,
+                    "selectable" : true
                     });
     }
     
@@ -385,31 +390,43 @@ function gen_vis(info){
                                  projection: "mercator",
                                  "panEventsEnabled" : true,
                                  backgroundColor : "#B8D7E0",
-                                 areasSettings: {
-                                 //"unlistedAreasColor": "#000000",
-                                 //"unlistedAreasAlpha": 0.1
-                                 },
                                  dataProvider: {
                                  map: "worldLow",
                                  images: images
                                  },
                                  "listeners": [ {
-                                               "event": "rollOverMapObject",
+                                               "event": "clickMapObject",
                                                "method": function( event ) {
-                                               // deselect the area by assigning all of the dataProvider as selected object
-                                               map.displayedObject = images.dataProvider;
+                                               var id;
+                                               country = [];
                                                
-                                               
-                                               // let's build a list of currently selected states
-                                               var states = [];
-                                               for ( var i in map.dataProvider.areas ) {
-                                               var area = map.dataProvider.areas[ i ];
-                                               if ( area.showAsSelected ) {
-                                               states.push( area.title );
+                                               id = event.mapObject.title;
+                                               if(event.mapObject.showAsSelected == true){
+                                               console.log("ENTROU IF2" + " count : " + count);
+                                               console.log("ENTROU IF selected = true");
+                                               event.mapObject.showAsSelected = false;
+                                               map.selectedObject = map.dataProvider;
+                                               count2++;
+                                               }
+                                               else{
+                                               console.log("ENTROU ELSE");
+                                               if (count2>0){
+                                               event.mapObject.showAsSelected = !event.mapObject.showAsSelected;
+                                               count2--;}
                                                }
                                                
+                                               // bring it to an appropriate color
+                                               map.returnInitialColor( event.mapObject );
+                                               
+                                               
+                                               for ( var i in map.dataProvider.images ) {
+                                               var image = map.dataProvider.images[ i ];
+                                               if (image.showAsSelected){
+                                               country.push( image.name );
                                                
                                                }
+                                               }
+                                               console.log(country);
                                                }
                                                } ],
                                  export: {

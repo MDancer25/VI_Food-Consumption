@@ -50,6 +50,26 @@ body{
     left: 760px;
     top: 55px;
     overflow: scroll;
+    font-family: arial;
+    font-size: 9pt;
+}
+
+#stackedbar{
+    width: 490px;
+    height: 280px;
+    position: absolute;
+    left: 760px;
+    top: 350px;
+    visibility:hidden;
+}
+
+#radarchart{
+    width: 490px;
+    height: 250px;
+    position: absolute;
+    left: 760px;
+    top: 75px;
+    visibility:hidden;
 }
 
 .btn {
