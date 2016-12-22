@@ -123,6 +123,7 @@ var map = AmCharts.makeChart("mapdiv",{
                                             if (area.showAsSelected){
                                             state.push( area.title );
                                            gen_stacked();
+                                           gen_gauge();
                                            }
                                            }
                                            }

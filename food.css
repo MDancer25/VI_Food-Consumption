@@ -72,6 +72,15 @@ body{
     visibility:hidden;
 }
 
+#gaugechart{
+    width: 490px;
+    height: 250px;
+    position: absolute;
+    left: 760px;
+    top: 75px;
+    visibility:hidden;
+}
+
 .btn {
     position:absolute;
     left: 940px;

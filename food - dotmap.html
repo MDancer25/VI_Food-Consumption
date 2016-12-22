@@ -11,6 +11,7 @@
    <script src="amcharts.js"></script>
    <script src="https://www.amcharts.com/lib/3/radar.js"></script>
    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+   <script src="https://www.amcharts.com/lib/3/gauge.js"></script>
    <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
    <script src="https://www.amcharts.com/lib/3/maps/js/worldHigh.js"></script>
    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
@@ -35,6 +36,13 @@
             <div id="radarchart">
                 <script src="StackedBarChart.js"></script>
             </div>
+            <div id="gaugechart">
+                <script src="GaugeChart.js"></script>
+            </div>
+            <div id="linechart">
+               <!-- <script src="LineChart.js"></script> -->
+            </div>
+            
             <div class="dropdown">
                 <button onclick="myFunction();" class="dropbtn">Consumptions
                 </button>
@@ -55,9 +63,9 @@
                 <button onclick="myFunction2()" class="dropbtn2">Comparisons
                 </button>
                 <div id="myDropdown2" class="dropdown-content2">
-                    <input class="radio" type="radio" name="food" value="Consumptions" font-size:"12px"  font-family:"arial">Consumptions<br>
-                        <input class="radio" type="radio" name="food" value="Obesity" font-size:"12px"  font-family:"arial">Obesity<br>
-                            <input class="radio" type="radio" name="food" value="LifeExpectancy" font-size:"12px"  font-family:"arial">Life Expectancy
+                    <input class="radio" type="radio" name="food" id="Consumptions" font-size:"12px"  font-family:"arial" onclick="myShow();">Consumptions<br>
+                        <input class="radio" type="radio" name="food" id="Obesity" font-size:"12px"  font-family:"arial" onclick="myShow();">Obesity<br>
+                            <input class="radio" type="radio" name="food" id="LifeExpectancy" font-size:"12px"  font-family:"arial" onclick="myShow();">Life Expectancy
                                 </div>
             </div>
   </body>

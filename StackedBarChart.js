@@ -7,9 +7,7 @@ d3.json("dataset_percapita.json", function (data) {
 
 function gen_stacked(){
     new_capita=[];
-    console.log(capita[0].Country == "Argentina");
-    console.log(state);
-    for(i=0; i< capita.length-1; i++){
+    for(i=0; i< capita.length; i++){
         for(j=0; j<3; j++){
             if(capita[i].Country == state[j]){
                 new_capita.push(capita[i]);

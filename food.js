@@ -1523,10 +1523,10 @@ function myFunction() {
         myFunction2();
     }
     document.getElementById("chartdiv").style.visibility = "visible";
-        document.getElementById("barchart").style.visibility = "visible";
+    document.getElementById("barchart").style.visibility = "visible";
     document.getElementById("mapdiv").style.visibility = "hidden";
     document.getElementById("stackedbar").style.visibility = "hidden";
-    document.getElementById("radarchart").style.visibility = "hidden";
+    document.getElementById("gaugechart").style.visibility = "hidden";
     document.getElementById("myDropdown").classList.toggle("show");
     
 }
@@ -1540,8 +1540,27 @@ function myFunction2() {
     document.getElementById("barchart").style.visibility = "hidden";
     document.getElementById("mapdiv").style.visibility = "visible";
     document.getElementById("stackedbar").style.visibility = "visible";
-    document.getElementById("radarchart").style.visibility = "visible";
+    document.getElementById("gaugechart").style.visibility = "visible";
     document.getElementById("myDropdown2").classList.toggle("show");
+}
+
+function myShow(){
+    /*if(document.getElementById("Consumptions").checked;){
+        document.getElementById("stackedbar").style.visibility = "visible";
+        document.getElementById("radarchart").style.visibility = "visible";
+        document.getElementById("gaugechart").style.visibility = "hidden";
+    }
+    else if(document.getElementById("Obesity").checked;){
+        document.getElementById("stackedbar").style.visibility = "hidden";
+        document.getElementById("radarchart").style.visibility = "hidden";
+        document.getElementById("gaugechart").style.visibility = "visible";
+    }
+    else if(document.getElementById("LifeExpectancy").checked;){
+        document.getElementById("stackedbar").style.visibility = "hidden";
+        document.getElementById("radarchart").style.visibility = "hidden";
+        document.getElementById("gaugechart").style.visibility = "hidden";
+    }*/
+    
 }
 
 /* ************************************** List in dropdown ***************************************/
