@@ -7,7 +7,6 @@ d3.json("dataset_percapita.json", function (data) {
 
 function gen_radar(){
     new_capita=[];
-    console.log("ENTRA NO RADAR");
     console.log(state);
     for(i=0; i< capita.length-1; i++){
         for(j=0; j<3; j++){

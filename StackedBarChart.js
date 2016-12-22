@@ -26,7 +26,8 @@ var chart = AmCharts.makeChart("stackedbar", {
                                "markerSize": 10,
                                "useGraphSettings": true,
                                "valueAlign": "left",
-                               "valueWidth": 0
+                               "valueWidth": 0,
+                               "color":"#000000"
                                },
                                "dataProvider": new_capita,
                                "valueAxes": [{

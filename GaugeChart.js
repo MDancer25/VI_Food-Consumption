@@ -16,12 +16,19 @@ function gen_gauge(){
             }
         }
     }
-    console.log("STATE: "+ state);
+    console.log("names length:" + (4-names.length));
+    for(k=0; k<(4- (names.length-1)); k++){
+        console.log("k: " + k);
+        names.push("Country");
+        new_info.push(0);
+    }
+    console.log("NAMES: "+ names);
     
     
     var gaugeChart = AmCharts.makeChart("gaugechart", {
                                         "type": "gauge",
                                         "theme": "dark",
+                                        "title": "Obesity",
                                         "axes": [{
                                                  "axisAlpha": 0,
                                                  "tickAlpha": 0,
@@ -37,7 +44,7 @@ function gen_gauge(){
                                                            "radius": "80%",
                                                            "innerRadius": "65%"
                                                            }, {
-                                                           "color": "#fdd400",
+                                                           "color": "#ffb366",
                                                            "startValue": 0,
                                                            "endValue": new_info[0],
                                                            "radius": "80%",
@@ -50,7 +57,7 @@ function gen_gauge(){
                                                            "radius": "60%",
                                                            "innerRadius": "45%"
                                                            }, {
-                                                           "color": "#cc4748",
+                                                           "color": "#e67300",
                                                            "startValue": 0,
                                                            "endValue": new_info[1],
                                                            "radius": "60%",
@@ -63,7 +70,7 @@ function gen_gauge(){
                                                            "radius": "40%",
                                                            "innerRadius": "25%"
                                                            }, {
-                                                           "color": "#67b7dc",
+                                                           "color": "#994d00",
                                                            "startValue": 0,
                                                            "endValue": new_info[2],
                                                            "radius": "40%",
@@ -77,7 +84,7 @@ function gen_gauge(){
                                                       "y": "15%",
                                                       "size": 15,
                                                       "bold": true,
-                                                      "color": "#fdd400",
+                                                      "color": "#ffb366",
                                                       "align": "right"
                                                       }, {
                                                       "text": names[1],
@@ -85,7 +92,7 @@ function gen_gauge(){
                                                       "y": "24%",
                                                       "size": 15,
                                                       "bold": true,
-                                                      "color": "#cc4748",
+                                                      "color": "#e67300",
                                                       "align": "right"
                                                       }, {
                                                       "text": names[2],
@@ -93,7 +100,7 @@ function gen_gauge(){
                                                       "y": "33%",
                                                       "size": 15,
                                                       "bold": true,
-                                                      "color": "#67b7dc",
+                                                      "color": "#994d00",
                                                       "align": "right"
                                                       }],
                                         "export": {

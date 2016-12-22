@@ -102,13 +102,14 @@ var map = AmCharts.makeChart("mapdiv",{
                                            
                                            id = event.mapObject.title;
                                            if(event.mapObject.showAsSelected == true){
-                                                    console.log("ENTROU IF selected = true");
-                                                    event.mapObject.showAsSelected = false;
-                                                    map.selectedObject = map.dataProvider;
-                                                    count++;
+                                                event.mapObject.showAsSelected = false;
+                                                map.selectedObject = map.dataProvider;
+                                                count++;
+                                                state = [];
+                                           gen_stacked(),
+                                           gen_gauge();
                                            }
                                            else{
-                                           console.log("ENTROU ELSE");
                                            if (count>0){
                                            event.mapObject.showAsSelected = !event.mapObject.showAsSelected;
                                            count--;}

@@ -25,8 +25,6 @@ function gen_vis2(){
     .domain([0,dataset.length-1])
     .range([47,h-35]);
     
-    console.log(dataset[dataset.length-1].Country);
-    
     //sitio horizontal
     var wscale = d3.scaleLinear()
     .domain([0, d3.max(capita, function(d)	{return d.All;})])
@@ -71,7 +69,6 @@ function gen_vis2(){
     .attr("y",function(d, i) {return hscale(i); })
     .append("title")
     .text(function(d) {return d.Country + " : " + d.All; });
-    console.log(country);
     d3.selectAll("#absolute").on("click",function(){
                                  console.log("ENTROU ON CLICK ABS1");
                                  dataset = abs;
@@ -156,6 +153,11 @@ function gen_capita(svg, w, h, hscale, wscale) {
     gY = svg.append("g")
     .attr("transform", "translate(0,45)")
     .call(yaxis);
+    
+    svg.select("text")
+    .attr("transform", "translate(" + (w - 50) + " , 15)")
+    .style("text-anchor", "middle")
+    .text("kcal/per capita");
     
     svg.selectAll("rect")
         .data(capita)
@@ -256,6 +258,10 @@ function gen_abs(svg, w, h, hscale, wscale){
     .attr("transform", "translate(120,0)")
     .call(xaxis);
     
+    svg.select("text")
+    .attr("transform", "translate(" + (w - 50) + " , 15)")
+    .style("text-anchor", "middle")
+    .text("10000 kcal");
     
     svg.selectAll("rect")
     .data(abs)
@@ -340,12 +346,12 @@ function update_beverage(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -385,12 +391,12 @@ function update_milk(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -430,12 +436,12 @@ function update_coffee(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -478,12 +484,12 @@ function update_beer(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -526,12 +532,12 @@ function update_wine(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -574,12 +580,12 @@ function update_spirits(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -621,12 +627,12 @@ function update_other(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -672,12 +678,12 @@ function update_animal(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -720,12 +726,12 @@ function update_bovine(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -768,12 +774,12 @@ function update_pigmeat(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -816,12 +822,12 @@ function update_poultry(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -863,12 +869,12 @@ function update_mutton(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -911,12 +917,12 @@ function update_offals(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -959,12 +965,12 @@ function update_fish(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -1007,12 +1013,12 @@ function update_eggs(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -1055,12 +1061,12 @@ function update_cheese(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -1103,12 +1109,12 @@ function update_butter(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -1152,12 +1158,12 @@ function update_honey(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -1204,12 +1210,12 @@ function update_vegetal(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -1251,12 +1257,12 @@ function update_fruits(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -1298,12 +1304,12 @@ function update_oils(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -1344,12 +1350,12 @@ function update_cereals(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -1390,12 +1396,12 @@ function update_pulses(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -1437,12 +1443,12 @@ function update_vegetables(svg, w, h, hscale, wscale){
     
     //eixo cima
     svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,45)")
     .call(yaxis);
     
     //eixo esquerda
     gX = svg.append("g")
-    .attr("transform", "translate(120,30)")
+    .attr("transform", "translate(120,45)")
     .call(xaxis);
     
     svg.selectAll("rect")
@@ -1539,27 +1545,27 @@ function myFunction2() {
     document.getElementById("chartdiv").style.visibility = "hidden";
     document.getElementById("barchart").style.visibility = "hidden";
     document.getElementById("mapdiv").style.visibility = "visible";
-    document.getElementById("stackedbar").style.visibility = "visible";
-    document.getElementById("gaugechart").style.visibility = "visible";
+    document.getElementById("stackedbar").style.visibility = "hidden";
+    document.getElementById("gaugechart").style.visibility = "hidden";
     document.getElementById("myDropdown2").classList.toggle("show");
 }
 
 function myShow(){
-    /*if(document.getElementById("Consumptions").checked;){
+    if(document.getElementById("Consumptions").checked){
         document.getElementById("stackedbar").style.visibility = "visible";
-        document.getElementById("radarchart").style.visibility = "visible";
         document.getElementById("gaugechart").style.visibility = "hidden";
+        document.getElementById("radarchart").style.visibility = "visible";
     }
-    else if(document.getElementById("Obesity").checked;){
+    else if(document.getElementById("Obesity").checked){
         document.getElementById("stackedbar").style.visibility = "hidden";
         document.getElementById("radarchart").style.visibility = "hidden";
         document.getElementById("gaugechart").style.visibility = "visible";
     }
-    else if(document.getElementById("LifeExpectancy").checked;){
+    else if(document.getElementById("LifeExpectancy").checked){
         document.getElementById("stackedbar").style.visibility = "hidden";
         document.getElementById("radarchart").style.visibility = "hidden";
         document.getElementById("gaugechart").style.visibility = "hidden";
-    }*/
+    }
     
 }
 
