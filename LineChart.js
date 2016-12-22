@@ -1,4 +1,12 @@
-var chart = AmCharts.makeChart("chartdiv", {
+var capita;
+
+d3.json("dataset_percapita.json", function (data) {
+        capita = data.data;
+        gen_line();
+        })
+
+function gen_line(){
+    var chart = AmCharts.makeChart("chartdiv", {
                                "type": "serial",
                                "theme": "light",
                                "legend": {
@@ -191,6 +199,7 @@ var chart = AmCharts.makeChart("chartdiv", {
                                "gridCount": 50
                                },
                                "export": {
-                               "enabled": true
+                               "enabled": false
                                }
                                });
+}
