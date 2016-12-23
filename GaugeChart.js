@@ -108,3 +108,13 @@ function gen_gauge(){
                                         }
                                         });
 }
+
+updateGaugeTotal(){
+
+}
+updateGaugeFemale(){
+
+}
+updateGaugeMale(){
+
+}

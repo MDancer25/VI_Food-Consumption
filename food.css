@@ -77,7 +77,19 @@ body{
     height: 250px;
     position: absolute;
     left: 760px;
-    top: 75px;
+    top: 350px;
+    visibility:hidden;
+}
+
+#lifechart{
+    width: 490px;
+    height: 560px;
+    position: absolute;
+    left: 760px;
+    top: 55px;
+    overflow: scroll;
+    font-family: arial;
+    font-size: 9pt;
     visibility:hidden;
 }
 
@@ -104,11 +116,6 @@ body{
     transform: translateY(4px);
 }
 
-.btn2:active {
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-}
-
 .btn1 {
     margin-left: 100px;
     background-color: white;
@@ -121,6 +128,10 @@ body{
     color: white;
 }
 
+.btn2:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
 
 .btn2 {
     background-color: white;
@@ -132,6 +143,61 @@ body{
     background-color: #98d1e6;
     color: white;
 }
+
+.btn3:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.btn3 {
+    background-color: white;
+    color: black;
+    border: 2px solid #333399;
+    visibility:hidden;
+    left:900px;
+}
+
+.btn3:hover {
+    background-color:#333399;
+    color: white;
+}
+
+.btn4:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.btn4 {
+    background-color: white;
+    color: black;
+    border: 2px solid #ff6699;
+    visibility:hidden;
+    left: 990px;
+}
+
+.btn4:hover {
+    background-color: #ff6699;
+    color: white;
+}
+
+.btn5:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.btn5 {
+    background-color: white;
+    color: black;
+    border: 2px solid #0066cc;
+    visibility:hidden;
+    left: 1100px;
+}
+
+.btn5:hover {
+    background-color: #0066cc;
+    color: white;
+}
+
 
 .dropbtn {
     background-color: #006080;
