@@ -106,9 +106,11 @@ var map = AmCharts.makeChart("mapdiv",{
                                                 map.selectedObject = map.dataProvider;
                                                 count++;
                                                 state = [];
-                                           gen_stacked(),
-                                           gen_gauge();
+                                           gen_stacked();
                                            gen_radar();
+                                           if(func_to_exec=="Total"){updateGaugeTotal();}
+                                           else if (func_to_exec=="Female"){updateGaugeFemale();}
+                                           else if(func_to_exec=="Male"){updateGaugeMale();}
                                            }
                                            else{
                                            if (count>0){
@@ -125,8 +127,10 @@ var map = AmCharts.makeChart("mapdiv",{
                                             if (area.showAsSelected){
                                             state.push( area.title );
                                            gen_stacked();
-                                           gen_gauge();
                                            gen_radar();
+                                           if(func_to_exec=="Total"){updateGaugeTotal();}
+                                           else if (func_to_exec=="Female"){updateGaugeFemale();}
+                                           else if(func_to_exec=="Male"){updateGaugeMale();}
                                            }
                                            }
                                            }

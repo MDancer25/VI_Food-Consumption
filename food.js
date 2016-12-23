@@ -11,7 +11,6 @@ d3.json("dataset_percapita.json", function (data) {
                 })
         })
 
-
 function gen_vis2(){
     dataset = capita;
    var w = 450;
@@ -1580,10 +1579,17 @@ function gen_life_total(svg, w,h,hscale, wscale){
     svg.select("text")
     .attr("transform", "translate(" + (w - 50) + " , 15)")
     .style("text-anchor", "middle")
-    .text("kcal/per capita");
+    .text("years");
     
     svg.selectAll("rect")
     .data(capita)
+    .filter(function(d){
+            if(state.length<1){return d.Country;}
+            else{ for (k=0; k<3; k++){
+            return d.Country==state[k];
+            }
+            }
+            })
     .transition()
     .duration(1000)
     .attr("height",20)
@@ -1648,10 +1654,17 @@ function gen_life_fem(svg, w,h,hscale, wscale){
     svg.select("text")
     .attr("transform", "translate(" + (w - 50) + " , 15)")
     .style("text-anchor", "middle")
-    .text("kcal/per capita");
+    .text("years");
     
     svg.selectAll("rect")
     .data(capita)
+    .filter(function(d){
+            if(state.length<1){return d.Country;}
+            else{ for (k=0; k<3; k++){
+            return d.Country==state[k];
+            }
+            }
+            })
     .transition()
     .duration(1000)
     .attr("height",20)
@@ -1717,6 +1730,13 @@ function gen_life_masc(svg, w,h,hscale, wscale){
     
     svg.selectAll("rect")
     .data(capita)
+    .filter(function(d){
+            if(state.length<1){return d.Country;}
+            else{ for (k=0; k<3; k++){
+            return d.Country==state[k];
+            }
+            }
+            })
     .transition()
     .duration(1000)
     .attr("height",20)

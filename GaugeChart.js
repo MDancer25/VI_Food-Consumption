@@ -1,31 +1,13 @@
-var capita, new_info=[], names=[], colors2=[];
+var capita, names=[], new_info=[], colors2=[], func_to_exec;
 
 d3.json("dataset_percapita.json", function (data) {
         capita = data.data;
         colors2=["#9f9fdf","#5353c6","#262673"];
-        gen_gauge();
+        func_to_exec="Total";
+        updateGaugeTotal();
         })
 
 function gen_gauge(){
-    new_info=[];
-    names=[];
-    for(i=0; i< capita.length; i++){
-        for(j=0; j<3; j++){
-            if(capita[i].Country == state[j]){
-                    new_info.push(capita[i].ObesityTotal);
-                    names.push(capita[i].Country);
-            }
-        }
-    }
-    console.log("names length:" + (4-names.length));
-    for(k=0; k<(4- (names.length-1)); k++){
-        console.log("k: " + k);
-        names.push("Country");
-        new_info.push(0);
-    }
-    console.log("NAMES: "+ names);
-    
-    
     var gaugeChart = AmCharts.makeChart("gaugechart", {
                                         "type": "gauge",
                                         "theme": "dark",
@@ -112,10 +94,26 @@ function gen_gauge(){
 
 function updateGaugeTotal(){
     colors2=["#9f9fdf","#5353c6","#262673"];
+    func_to_exec="Total";
+    new_info=[];
+    names=[];
+    for(i=0; i< capita.length; i++){
+        for(j=0; j<3; j++){
+            if(capita[i].Country == state[j]){
+                new_info.push(capita[i].ObesityTotal);
+                names.push(capita[i].Country);
+            }
+        }
+    }
+    for(k=0; k<(4- (names.length-1)); k++){
+        names.push("Country");
+        new_info.push(0);
+    }
     gen_radar();
     gen_gauge();
 }
 function updateGaugeFemale(){
+    func_to_exec="Female";
     new_info=[];
     names=[];
     colors2=["#ffccdd","#ff6699","#e6004c"];
@@ -127,17 +125,17 @@ function updateGaugeFemale(){
             }
         }
     }
-    console.log("names length:" + (4-names.length));
     for(k=0; k<(4- (names.length-1)); k++){
-        console.log("k: " + k);
         names.push("Country");
         new_info.push(0);
     }
+    console.log("Female: " +  new_info);
     gen_radar();
     gen_gauge();
     
 }
 function updateGaugeMale(){
+    func_to_exec="Male";
     new_info=[];
     names=[];
     colors2=["#80bfff","#0066cc","#004080"];
@@ -149,12 +147,11 @@ function updateGaugeMale(){
             }
         }
     }
-    console.log("names length:" + (4-names.length));
     for(k=0; k<(4- (names.length-1)); k++){
-        console.log("k: " + k);
         names.push("Country");
         new_info.push(0);
     }
+    console.log("Male: " +  new_info);
     gen_radar();
     gen_gauge();
     
