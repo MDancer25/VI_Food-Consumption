@@ -91,7 +91,7 @@ var map = AmCharts.makeChart("mapdiv",{
                              rollOverColor : "#afc7cf",
                              rollOverOutlineColor : "#FFFFFF",
                              unlistedAreasColor: "#262626",
-                             unlistedAreasOutlineColor: "#FFFFF",
+                             unlistedAreasOutlineColor: "#FFFFFF",
                              "selectable" : true
                              },
                              "listeners": [ {
@@ -108,23 +108,27 @@ var map = AmCharts.makeChart("mapdiv",{
                                                 state = [];
                                            gen_stacked(),
                                            gen_gauge();
+										   gen_radar();
                                            }
                                            else{
                                            if (count>0){
                                            event.mapObject.showAsSelected = !event.mapObject.showAsSelected;
-                                           count--;}
+                                           count--;
+										   
+										   var index = state.indexOf(event.mapObject.showAsSelected.title);
+										   state.splice(index, 1);}
                                            }
                                            
                                            // bring it to an appropriate color
                                            map.returnInitialColor( event.mapObject );
 
-                                            state = [];
                                             for ( var i in map.dataProvider.areas ) {
                                             var area = map.dataProvider.areas[ i ];
                                             if (area.showAsSelected){
                                             state.push( area.title );
                                            gen_stacked();
                                            gen_gauge();
+										   gen_radar();
                                            }
                                            }
                                            }
