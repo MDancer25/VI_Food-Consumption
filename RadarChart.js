@@ -8,6 +8,9 @@ var maxCEREAL = 0;
 var maxFAT = 0;
 var maxFRUIT = 0;
 var maxVEG = 0;
+var countries = ["", "", ""];
+
+
 d3.json("dataset_percapita.json", function (data) {
         capita = data.data;
 		maxANIMAL = d3.max(capita, function(d)	{return d.AnimalProducts;});
@@ -39,6 +42,7 @@ function gen_radar(){
         for(j=0; j<3; j++){
             if(capita[i].Country == state[j]){
                 new_capita.push(capita[i]);
+				countries[j] = capita[i].Country;
             }
         }
     }
@@ -86,26 +90,26 @@ function gen_radar(){
 												 "maximum": 1,
                                                  "axisAlpha": 0.15
                                                  } ],
-                                   "startDuration": 0.1,
+                                   "startDuration": 0.05,
                                    "graphs": [ {
-                                              "balloonText": "[[value]] kcal consumed by country1",
+                                              "balloonText": "kcal consumed by " + countries[0],
                                               "bullet": "round",
                                               "lineThickness": 2,
-                                              "fillAlphas": 0.5,
+                                              "fillAlphas": 0.0,
                                               "valueField": "country1"
                                               },
                                               {
-                                              "balloonText": "[[value]] kcal consumed by country2",
+                                              "balloonText": "kcal consumed by " + countries[1],
                                               "bullet": "round",
                                               "lineThickness": 2,
-                                              "fillAlphas": 0.5,
+                                              "fillAlphas": 0.0,
                                               "valueField": "country2"
                                               },
                                               {
-                                              "balloonText": "[[value]] kcal consumed by country3",
+                                              "balloonText": "kcal consumed by " + countries[2],
                                               "bullet": "round",
                                               "lineThickness": 2,
-                                              "fillAlphas": 0.5,
+                                              "fillAlphas": 0.0,
                                               "valueField": "country3"
                                               }],
                                    "categoryField": "product",
