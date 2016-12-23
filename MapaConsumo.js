@@ -1,5 +1,4 @@
-var count2 = 6;
-var country;
+var states2;
 
 /*
  Although amMap has methods like getAreaCenterLatitude and getAreaCenterLongitude,
@@ -398,35 +397,13 @@ function gen_vis(info){
                                                "event": "clickMapObject",
                                                "method": function( event ) {
                                                var id;
-                                               country = [];
-                                               
-                                               id = event.mapObject.title;
-                                               if(event.mapObject.showAsSelected == true){
-                                               console.log("ENTROU IF2" + " count : " + count);
-                                               console.log("ENTROU IF selected = true");
-                                               event.mapObject.showAsSelected = false;
-                                               map.selectedObject = map.dataProvider;
-                                               count2++;
-                                               }
-                                               else{
-                                               console.log("ENTROU ELSE");
-                                               if (count2>0){
-                                               event.mapObject.showAsSelected = !event.mapObject.showAsSelected;
-                                               count2--;}
-                                               }
-                                               
-                                               // bring it to an appropriate color
-                                               map.returnInitialColor( event.mapObject );
-                                               
-                                               
+                                               states2=[];
                                                for ( var i in map.dataProvider.images ) {
-                                               var image = map.dataProvider.images[ i ];
-                                               if (image.showAsSelected){
-                                               country.push( image.name );
-                                               
+                                                    var image = map.dataProvider.images[ i ];
+                                                    if (image.showAsSelected){
+                                                        country.push( image.name );
+                                                    }
                                                }
-                                               }
-                                               console.log(country);
                                                }
                                                } ],
                                  export: {

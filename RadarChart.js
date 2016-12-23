@@ -24,20 +24,12 @@ d3.json("dataset_percapita.json", function (data) {
  d3.max
 function gen_radar(){
 	var aprod = Array.apply(null, Array(3)).map(Number.prototype.valueOf,0);
-	console.log(maxANIMAL);
-	console.log(maxCEREAL);
-	console.log(maxFAT);
-	console.log(maxFRUIT);
-	console.log(maxVEG);
-	console.log("APROD");
-	console.log(aprod);
 	veg = Array.apply(null, Array(3)).map(Number.prototype.valueOf,0);
 	cer = Array.apply(null, Array(3)).map(Number.prototype.valueOf,0);
 	frt = Array.apply(null, Array(3)).map(Number.prototype.valueOf,0);
 	fat = Array.apply(null, Array(3)).map(Number.prototype.valueOf,0);
 	
     new_capita2=[];
-    console.log(state);
     for(i=0; i< capita.length; i++){
         for(j=0; j<3; j++){
             if(capita[i].Country == state[j]){
@@ -46,7 +38,6 @@ function gen_radar(){
             }
         }
     }
-    console.log("NEW CAPITA: " + new_capita2);
 	for(i=0; i<new_capita2.length;i++){
 		aprod[i]=new_capita2[i].AnimalProducts/maxANIMAL;
 		veg[i] = new_capita2[i].Vegetables/maxVEG;
