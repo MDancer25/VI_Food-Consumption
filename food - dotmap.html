@@ -18,8 +18,12 @@
 
 
   <body>
-      <span class="btn btn1" id="absolute" onclick="updateMapAbs();" >Absolute</span>
+      <span class="btn btn1" id="absolute" onclick="updateMapAbs(); " >Absolute</span>
       <span class="btn btn2" id="capita" onclick="updateMapCapita();" >Per Capita</span>
+      <span class="btn btn3" id="total" onclick="updateGaugeTotal();" >Total</span>
+      <span class="btn btn4" id="fem" onclick="updateGaugeFemale();" >Female</span>
+      <span class="btn btn5" id="masc" onclick="updateGaugeMale();" >Male</span>
+
     <h1>Food Consumption and Distribution Worldwide!</h1>
             <div id="chartdiv">
                 <script src="MapaConsumo.js"></script>
@@ -37,9 +41,7 @@
             <div id="gaugechart">
                 <script src="GaugeChart.js"></script>
             </div>
-            <div id="linechart">
-               <!-- <script src="LineChart.js"></script> -->
-            </div>
+            <div id="lifechart"></div>
             
             <div class="dropdown">
                 <button onclick="myFunction();" class="dropbtn">Consumptions

@@ -1,4 +1,4 @@
-var capita, new_capita=[];
+var capita, new_capita2=[];
 var veg = Array.apply(null, Array(3)).map(Number.prototype.valueOf,0);
 var cer = Array.apply(null, Array(3)).map(Number.prototype.valueOf,0);
 var frt = Array.apply(null, Array(3)).map(Number.prototype.valueOf,0);
@@ -36,24 +36,23 @@ function gen_radar(){
 	frt = Array.apply(null, Array(3)).map(Number.prototype.valueOf,0);
 	fat = Array.apply(null, Array(3)).map(Number.prototype.valueOf,0);
 	
-    new_capita=[];
+    new_capita2=[];
     console.log(state);
-    for(i=0; i< capita.length-1; i++){
+    for(i=0; i< capita.length; i++){
         for(j=0; j<3; j++){
             if(capita[i].Country == state[j]){
-                new_capita.push(capita[i]);
+                new_capita2.push(capita[i]);
 				countries[j] = capita[i].Country;
             }
         }
     }
-	for(i=0; i<new_capita.length;i++){
-		aprod[i]=new_capita[i].AnimalProducts/maxANIMAL;
-		veg[i] = new_capita[i].Vegetables/maxVEG;
-		cer[i] = new_capita[i].Cereals/maxCEREAL;
-		frt[i] = new_capita[i].Fruits/maxFRUIT;
-		fat[i] = new_capita[i].Fats/maxFAT;
-		console.log("APROD");
-		console.log(aprod);
+    console.log("NEW CAPITA: " + new_capita2);
+	for(i=0; i<new_capita2.length;i++){
+		aprod[i]=new_capita2[i].AnimalProducts/maxANIMAL;
+		veg[i] = new_capita2[i].Vegetables/maxVEG;
+		cer[i] = new_capita2[i].Cereals/maxCEREAL;
+		frt[i] = new_capita2[i].Fruits/maxFRUIT;
+		fat[i] = new_capita2[i].Fats/maxFAT;
 	}
     var chart = AmCharts.makeChart( "radarchart", {
                                    "type": "radar",
@@ -95,21 +94,21 @@ function gen_radar(){
                                               "balloonText": "kcal consumed by " + countries[0],
                                               "bullet": "round",
                                               "lineThickness": 2,
-                                              "fillAlphas": 0.0,
+                                              "lineColor":colors2[0],
                                               "valueField": "country1"
                                               },
                                               {
                                               "balloonText": "kcal consumed by " + countries[1],
                                               "bullet": "round",
                                               "lineThickness": 2,
-                                              "fillAlphas": 0.0,
+                                              "lineColor":colors2[1],
                                               "valueField": "country2"
                                               },
                                               {
                                               "balloonText": "kcal consumed by " + countries[2],
                                               "bullet": "round",
                                               "lineThickness": 2,
-                                              "fillAlphas": 0.0,
+                                              "lineColor": colors2[2],
                                               "valueField": "country3"
                                               }],
                                    "categoryField": "product",

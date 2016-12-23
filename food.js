@@ -7,6 +7,7 @@ d3.json("dataset_percapita.json", function (data) {
         d3.json("dataset_absolute.json", function (data) {
                 abs = data.data;
                 gen_vis2();
+                gen_life();
                 })
         })
 
@@ -1465,39 +1466,278 @@ function update_vegetables(svg, w, h, hscale, wscale){
 }
 
 
-//***************************************** Highlight *****************************************
+//***************************************** Life Expectancy *****************************************
 
-/*function onMouseover() {
+function gen_life(){
+    dataset = capita;
+    var w = 450;
+    var h = 1500;
+    var svg = d3.select("#lifechart")
+    .append("svg")
+    .attr("width",w)
+    .attr("height",h);
     
-    var out = exportHoverCountry();
-    console.log(out);
+    //sitio vertical
+    var hscale = d3.scaleLinear()
+    .domain([0,dataset.length-1])
+    .range([47,h-35]);
     
-    d3.select("svg").selectAll("rect")
-    .filter(function(d) { for (i=0; i<country.length; i++){
-            return  d.Country == country[i];
-            }
-            });
+    //sitio horizontal
+    var wscale = d3.scaleLinear()
+    .domain([0, d3.max(capita, function(d)	{return d.LifeExpectancyTotal;})])
+    .range([120,w-5]);
+    
+    //eixo ordinal
+    var x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([45,h-15])
+    .align([0.5]);
     
     
+    var xaxis = d3.axisLeft()
+    .scale(x);
+    
+    var yaxis = d3.axisTop()
+    .scale(wscale);
+    
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,0)")
+    .call(xaxis);
+    
+    //eixo topo
+    gY = svg.append("g")
+    .attr("transform", "translate(0,45)")
+    .call(yaxis);
+    
+    svg.append("text")
+    .attr("transform", "translate(" + (w - 50) + " , 15)")
+    .style("text-anchor", "middle")
+    .text("years");
+    
+    svg.selectAll("rect")
+    .data(dataset)
+    .enter().append("rect")
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.LifeExpectancyTotal))-120, 1);})
+    .attr("fill","#333399")
+    .attr("x",function(d) {
+          return wscale(0.5);})
+    .attr("y",function(d, i) {return hscale(i); })
+    .append("title")
+    .text(function(d) {return d.Country + " : " + d.LifeExpectancyTotal; });
+    d3.selectAll("#total").on("click",function(){
+                              gen_life_total(svg, w, h, hscale, wscale);
+                                 });
+    d3.selectAll("#fem").on("click", function(){
+                               gen_life_fem(svg, w, h, hscale, wscale);
+                               });
+    d3.selectAll("#masc").on("click", function(){
+                               gen_life_masc(svg, w, h, hscale, wscale);
+                               });
+    
+
 }
 
-function onMouseout(elemData) {
+function gen_life_total(svg, w,h,hscale, wscale){
     
-    d3.select("svg").selectAll("circle")
-    .select( function(d) { return d===elemData?this:null;})
+    //sitio vertical
+    hscale = d3.scaleLinear()
+    .domain([0,dataset.length-1])
+    .range([47,h-35]);
+    
+    //sitio horizontal
+    wscale = d3.scaleLinear()
+    .domain([0, d3.max(capita, function(d)	{return d.LifeExpectancyTotal;})])
+    .range([120,w-5]);
+    
+    //eixo ordinal
+    x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([45,h-15])
+    .align([0.5]);
+    
+    
+    xaxis = d3.axisLeft()
+    .scale(x);
+    
+    
+    yaxis = d3.axisTop()
+    .scale(wscale);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,0)")
+    .call(xaxis);
+    
+    //eixo topo
+    gY = svg.append("g")
+    .attr("transform", "translate(0,45)")
+    .call(yaxis);
+    
+    svg.select("text")
+    .attr("transform", "translate(" + (w - 50) + " , 15)")
+    .style("text-anchor", "middle")
+    .text("kcal/per capita");
+    
+    svg.selectAll("rect")
+    .data(capita)
     .transition()
-    .style('stroke', '#bfbfbf')
-    .attr("r", function(d) { return (d.size/200) - 2; })
-    
-    d3.select('#key').selectAll('li')
-    .select( function(d) { return d===elemData?this:null;})
-    .transition().duration(500)//Set transition
-    .style('background', '#ffffff')
-    
-    
-}*/
+    .duration(1000)
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.LifeExpectancyTotal))-120, 0);})
+    .attr("fill","#333399")
+    .attr("x",function(d) {
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i); })
+    .select("title")
+    .text(function(d) {return d.Country + " : " + d.LifeExpectancyTotal; });
+    d3.selectAll("#total").on("click",function(){
+                              gen_life_total(svg, w, h, hscale, wscale);
+                              });
+    d3.selectAll("#fem").on("click", function(){
+                            gen_life_fem(svg, w, h, hscale, wscale);
+                            });
+    d3.selectAll("#masc").on("click", function(){
+                             gen_life_masc(svg, w, h, hscale, wscale);
+                             });
+}
 
 
+
+function gen_life_fem(svg, w,h,hscale, wscale){
+    
+    //sitio vertical
+    hscale = d3.scaleLinear()
+    .domain([0,dataset.length-1])
+    .range([47,h-35]);
+    
+    //sitio horizontal
+    wscale = d3.scaleLinear()
+    .domain([0, d3.max(capita, function(d)	{return d.LifeExpectancyFemale;})])
+    .range([120,w-5]);
+    
+    //eixo ordinal
+    x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([45,h-15])
+    .align([0.5]);
+    
+    
+    xaxis = d3.axisLeft()
+    .scale(x);
+    
+    
+    yaxis = d3.axisTop()
+    .scale(wscale);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,0)")
+    .call(xaxis);
+    
+    //eixo topo
+    gY = svg.append("g")
+    .attr("transform", "translate(0,45)")
+    .call(yaxis);
+    
+    svg.select("text")
+    .attr("transform", "translate(" + (w - 50) + " , 15)")
+    .style("text-anchor", "middle")
+    .text("kcal/per capita");
+    
+    svg.selectAll("rect")
+    .data(capita)
+    .transition()
+    .duration(1000)
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.LifeExpectancyFemale))-120, 0);})
+    .attr("fill","#ff6699")
+    .attr("x",function(d) {
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i); })
+    .select("title")
+    .text(function(d) {return d.Country + " : " + d.LifeExpectancyFemale; });
+    d3.selectAll("#total").on("click",function(){
+                              gen_life_total(svg, w, h, hscale, wscale);
+                              });
+    d3.selectAll("#fem").on("click", function(){
+                            gen_life_fem(svg, w, h, hscale, wscale);
+                            });
+    d3.selectAll("#masc").on("click", function(){
+                             gen_life_masc(svg, w, h, hscale, wscale);
+                             });
+}
+
+function gen_life_masc(svg, w,h,hscale, wscale){
+    //sitio vertical
+    hscale = d3.scaleLinear()
+    .domain([0,dataset.length-1])
+    .range([47,h-35]);
+    
+    //sitio horizontal
+    wscale = d3.scaleLinear()
+    .domain([0, d3.max(capita, function(d)	{return d.LifeExpectancyMale;})])
+    .range([120,w-5]);
+    
+    //eixo ordinal
+    x = d3.scaleBand()
+    .domain(capita.map(function(d){ return d.Country;}))
+    .range([45,h-15])
+    .align([0.5]);
+    
+    
+    xaxis = d3.axisLeft()
+    .scale(x);
+    
+    
+    yaxis = d3.axisTop()
+    .scale(wscale);
+    
+    svg.selectAll("g").remove();
+    
+    //eixo esquerda
+    gX = svg.append("g")
+    .attr("transform", "translate(120,0)")
+    .call(xaxis);
+    
+    //eixo topo
+    gY = svg.append("g")
+    .attr("transform", "translate(0,45)")
+    .call(yaxis);
+    
+    svg.select("text")
+    .attr("transform", "translate(" + (w - 50) + " , 15)")
+    .style("text-anchor", "middle")
+    .text("kcal/per capita");
+    
+    svg.selectAll("rect")
+    .data(capita)
+    .transition()
+    .duration(1000)
+    .attr("height",20)
+    .attr("width",function(d) {return Math.max((wscale(d.LifeExpectancyMale))-120, 0);})
+    .attr("fill","#0066cc")
+    .attr("x",function(d) {
+          return wscale(0.03);})
+    .attr("y",function(d, i) {return hscale(i); })
+    .select("title")
+    .text(function(d) {return d.Country + " : " + d.LifeExpectancyMale; });
+    d3.selectAll("#total").on("click",function(){
+                              gen_life_total(svg, w, h, hscale, wscale);
+                              });
+    d3.selectAll("#fem").on("click", function(){
+                            gen_life_fem(svg, w, h, hscale, wscale);
+                            });
+    d3.selectAll("#masc").on("click", function(){
+                             gen_life_masc(svg, w, h, hscale, wscale);
+                             });
+
+}
 
 //**************************************  Cat/Subcat *****************************************
 
@@ -1533,6 +1773,13 @@ function myFunction() {
     document.getElementById("mapdiv").style.visibility = "hidden";
     document.getElementById("stackedbar").style.visibility = "hidden";
     document.getElementById("gaugechart").style.visibility = "hidden";
+    document.getElementById("radarchart").style.visibility = "hidden";
+    document.getElementById("absolute").style.visibility = "visible";
+    document.getElementById("capita").style.visibility = "visible";
+    document.getElementById("lifechart").style.visibility = "hidden";
+    document.getElementById("total").style.visibility = "hidden";
+    document.getElementById("fem").style.visibility = "hidden";
+    document.getElementById("masc").style.visibility = "hidden";
     document.getElementById("myDropdown").classList.toggle("show");
     
 }
@@ -1547,6 +1794,13 @@ function myFunction2() {
     document.getElementById("mapdiv").style.visibility = "visible";
     document.getElementById("stackedbar").style.visibility = "hidden";
     document.getElementById("gaugechart").style.visibility = "hidden";
+    document.getElementById("absolute").style.visibility = "hidden";
+    document.getElementById("capita").style.visibility = "hidden";
+    document.getElementById("radarchart").style.visibility = "hidden";
+    document.getElementById("lifechart").style.visibility = "hidden";
+    document.getElementById("total").style.visibility = "hidden";
+    document.getElementById("fem").style.visibility = "hidden";
+    document.getElementById("masc").style.visibility = "hidden";
     document.getElementById("myDropdown2").classList.toggle("show");
 }
 
@@ -1555,16 +1809,28 @@ function myShow(){
         document.getElementById("stackedbar").style.visibility = "visible";
         document.getElementById("gaugechart").style.visibility = "hidden";
         document.getElementById("radarchart").style.visibility = "visible";
+        document.getElementById("lifechart").style.visibility = "hidden";
+        document.getElementById("total").style.visibility = "hidden";
+        document.getElementById("fem").style.visibility = "hidden";
+        document.getElementById("masc").style.visibility = "hidden";
     }
     else if(document.getElementById("Obesity").checked){
         document.getElementById("stackedbar").style.visibility = "hidden";
-        document.getElementById("radarchart").style.visibility = "hidden";
+        document.getElementById("radarchart").style.visibility = "visible";
         document.getElementById("gaugechart").style.visibility = "visible";
+        document.getElementById("lifechart").style.visibility = "hidden";
+        document.getElementById("total").style.visibility = "visible";
+        document.getElementById("fem").style.visibility = "visible";
+        document.getElementById("masc").style.visibility = "visible";
     }
     else if(document.getElementById("LifeExpectancy").checked){
         document.getElementById("stackedbar").style.visibility = "hidden";
         document.getElementById("radarchart").style.visibility = "hidden";
         document.getElementById("gaugechart").style.visibility = "hidden";
+        document.getElementById("lifechart").style.visibility = "visible";
+        document.getElementById("total").style.visibility = "visible";
+        document.getElementById("fem").style.visibility = "visible";
+        document.getElementById("masc").style.visibility = "visible";
     }
     
 }
