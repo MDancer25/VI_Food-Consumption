@@ -110,7 +110,7 @@ function gen_radar(){
                                               }],
                                    "categoryField": "product",
                                    "export": {
-                                   "enabled": true
+                                   "enabled": false
                                    }
                                    } );
 }
