@@ -94,21 +94,21 @@ function gen_radar(){
                                               "balloonText": "kcal consumed by " + countries[0],
                                               "bullet": "round",
                                               "lineThickness": 2,
-                                              "lineColor":"#ffb366",
+                                              "lineColor":colors2[0],
                                               "valueField": "country1"
                                               },
                                               {
                                               "balloonText": "kcal consumed by " + countries[1],
                                               "bullet": "round",
                                               "lineThickness": 2,
-                                              "lineColor":"#e67300",
+                                              "lineColor":colors2[1],
                                               "valueField": "country2"
                                               },
                                               {
                                               "balloonText": "kcal consumed by " + countries[2],
                                               "bullet": "round",
                                               "lineThickness": 2,
-                                              "lineColor": "#994d00",
+                                              "lineColor": colors2[2],
                                               "valueField": "country3"
                                               }],
                                    "categoryField": "product",
